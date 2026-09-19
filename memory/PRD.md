@@ -26,6 +26,10 @@ Client runs a nutraceutical plant and previously had the NutriEdge Lifescience w
 - Mr. Vipul Dobariya — OEM — +91 99133 29449
 - Email: info@infinitiveshealthcare.com
 
+## Implemented (2026-09-19, v3)
+- Correct official logo (client-uploaded JPEG, used as-is) now everywhere: navbar, mobile menu, footer (white pill card on dark), marquee separators, hero watermark (slow float), why-us medallion, favicon, og:image. Old hand-drawn SVG logo removed
+- New front-page animation: brand intro overlay — logo blurs/scales in on white, then slides up to reveal the hero; hero line-reveal choreography re-timed to start after the intro
+
 ## Implemented (2026-09-19, v2)
 - Real client product photos uploaded per category (all 15 categories, /assets/categories/*.webp) — used on Products grid, Product Detail heroes, Home dosage showcase, Gallery
 - Hero center image now uses the real gummy-candy product photo with rotating dashed ring, floating gradient pill chips, and animated ambient orbs

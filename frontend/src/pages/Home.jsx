@@ -1,6 +1,6 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
 import {
   ArrowUpRight, ArrowRight, ShieldCheck, Factory, Package, Boxes, ScanSearch,
   Headphones, Leaf, Star, MapPin, Phone, CheckCircle2, FlaskConical, Microscope,
@@ -8,7 +8,6 @@ import {
 } from 'lucide-react';
 import Marquee from '../components/Marquee';
 import LicenseSlider from '../components/LicenseSlider';
-import Logo from '../components/Logo';
 import { Reveal, MaskedLine, FadeIn, SectionHead } from '../components/Reveal';
 import { useLang } from '../i18n/LanguageContext';
 import {
@@ -17,6 +16,34 @@ import {
 } from '../data/content';
 
 const PRINCIPLE_ICONS = { Factory, Package, Boxes, ScanSearch, Headphones, Leaf };
+
+const BrandIntro = () => {
+  const [show, setShow] = useState(true);
+  useEffect(() => {
+    const id = setTimeout(() => setShow(false), 1500);
+    return () => clearTimeout(id);
+  }, []);
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-white"
+          exit={{ y: '-100%', transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] } }}
+          data-testid="brand-intro"
+        >
+          <motion.img
+            src="/assets/logo-correct.jpeg"
+            alt="Infinitives Healthcare"
+            className="w-72 sm:w-[26rem]"
+            initial={{ opacity: 0, scale: 0.78, filter: 'blur(14px)' }}
+            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
 
 const Hero = () => {
   const { t } = useLang();
@@ -29,14 +56,11 @@ const Hero = () => {
   return (
     <section ref={ref} className="hero-mesh relative flex min-h-screen flex-col overflow-hidden pt-28" data-testid="hero-section">
       <motion.div
-        className="pointer-events-none absolute -right-32 top-16 h-[34rem] w-[34rem] opacity-[0.07]"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+        className="pointer-events-none absolute -right-24 top-24 w-[38rem] opacity-[0.07]"
+        animate={{ y: [0, 34, 0], rotate: [0, 5, 0] }}
+        transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <svg viewBox="0 0 104 64" className="h-full w-full">
-          <path d="M8 44 C8 24 24 14 34 24 C44 34 52 46 62 46 C74 46 82 34 74 24 C66 14 50 20 44 32" stroke="#f59e0b" strokeWidth="10" strokeLinecap="round" fill="none" />
-          <path d="M96 20 C96 40 80 50 70 40 C60 30 52 18 42 18 C30 18 22 30 30 40 C38 50 54 44 60 32" stroke="#0284c7" strokeWidth="10" strokeLinecap="round" fill="none" />
-        </svg>
+        <img src="/assets/logo-correct.jpeg" alt="" className="w-full" />
       </motion.div>
 
       <motion.div className="pointer-events-none absolute -left-24 top-1/3 h-80 w-80 rounded-full bg-pink-500/15 blur-3xl" animate={{ x: [0, 50, 0], y: [0, -35, 0] }} transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }} />
@@ -44,7 +68,7 @@ const Hero = () => {
       <motion.div className="pointer-events-none absolute bottom-8 left-1/3 h-64 w-64 rounded-full bg-amber-400/15 blur-3xl" animate={{ x: [0, 30, 0], y: [0, -25, 0] }} transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut' }} />
 
       <div className="relative mx-auto w-full max-w-7xl flex-1 px-5 sm:px-8">
-        <FadeIn delay={0.15}>
+        <FadeIn delay={1.6}>
           <div className="flex justify-center">
             <span className="glass-card rounded-full px-5 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-slate-700" data-testid="hero-overline">
               {t('heroOverline')}
@@ -54,19 +78,19 @@ const Hero = () => {
 
         <motion.div style={{ y: typeY }} className="relative z-10 mt-8 text-center">
           <h1 className="font-display font-extrabold leading-[0.95] tracking-tight" data-testid="hero-title">
-            <MaskedLine delay={0.25} className="text-[13vw] text-slate-900 sm:text-[11vw] lg:text-[8.5rem]">
+            <MaskedLine delay={1.75} className="text-[13vw] text-slate-900 sm:text-[11vw] lg:text-[8.5rem]">
               {t('heroTitleA')}
             </MaskedLine>
-            <MaskedLine delay={0.4} className="outline-text text-[13vw] sm:text-[11vw] lg:text-[8.5rem]">
+            <MaskedLine delay={1.9} className="outline-text text-[13vw] sm:text-[11vw] lg:text-[8.5rem]">
               {t('heroTitleB')}
             </MaskedLine>
-            <MaskedLine delay={0.55} className="text-infinity-gradient text-[13vw] sm:text-[11vw] lg:text-[8.5rem]">
+            <MaskedLine delay={2.05} className="text-infinity-gradient text-[13vw] sm:text-[11vw] lg:text-[8.5rem]">
               {t('heroTitleC')}
             </MaskedLine>
           </h1>
         </motion.div>
 
-        <FadeIn delay={0.85}>
+        <FadeIn delay={2.4}>
           <p className="mx-auto mt-6 max-w-xl text-center text-base leading-relaxed text-slate-600" data-testid="hero-subtitle">
             {t('heroSub')}
           </p>
@@ -95,7 +119,7 @@ const Hero = () => {
             <motion.div
               initial={{ opacity: 0, y: 60, scale: 0.94 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: 0.7, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ delay: 2.25, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
               className="relative"
             >
               <div className="absolute inset-0 -z-10 scale-110 rounded-full bg-gradient-to-tr from-pink-500/25 via-sky-400/25 to-amber-400/25 blur-3xl" />
@@ -112,7 +136,7 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          <FadeIn delay={1.05} className="absolute left-8 top-8 z-20">
+          <FadeIn delay={2.6} className="absolute left-8 top-8 z-20">
             <div className="glass-card animate-float w-64 rounded-3xl p-5" data-testid="hero-card-formulation">
               <div className="flex items-center gap-3">
                 <img src={images.gummies} alt="Gummies" className="h-12 w-12 rounded-2xl object-cover" />
@@ -124,7 +148,7 @@ const Hero = () => {
             </div>
           </FadeIn>
 
-          <FadeIn delay={1.2} className="absolute right-8 top-24 z-20">
+          <FadeIn delay={2.75} className="absolute right-8 top-24 z-20">
             <div className="glass-card animate-float-slow w-60 rounded-3xl p-5" data-testid="hero-card-quality">
               <div className="flex items-center gap-3">
                 <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-pink-600/10 text-pink-600">
@@ -138,7 +162,7 @@ const Hero = () => {
             </div>
           </FadeIn>
 
-          <FadeIn delay={1.35} className="absolute bottom-2 left-1/2 z-20 -translate-x-1/2">
+          <FadeIn delay={2.9} className="absolute bottom-2 left-1/2 z-20 -translate-x-1/2">
             <div className="flex gap-3" data-testid="hero-badges">
               {[t('heroBadge1'), t('heroBadge2'), t('heroBadge3')].map((b) => (
                 <span key={b} className="glass-card rounded-full px-4 py-2 text-xs font-bold text-slate-700">{b}</span>
@@ -355,9 +379,8 @@ const WhyUs = () => {
           <div className="relative flex h-64 w-64 items-center justify-center sm:h-80 sm:w-80" data-testid="why-us-medallion">
             <div className="animate-spin-slow absolute inset-0 rounded-full border-2 border-dashed border-slate-300" />
             <div className="absolute inset-6 rounded-full bg-gradient-to-br from-pink-500/10 via-sky-500/10 to-amber-400/10" />
-            <div className="glass-card flex h-44 w-44 flex-col items-center justify-center rounded-full sm:h-56 sm:w-56">
-              <Logo compact />
-              <span className="mt-3 text-[9px] font-bold uppercase tracking-[0.3em] text-slate-500">Every Dose</span>
+            <div className="glass-card flex h-44 w-44 items-center justify-center rounded-full p-6 sm:h-56 sm:w-56 sm:p-8">
+              <img src="/assets/logo-correct.jpeg" alt="Infinitives Healthcare" className="w-full rounded-full bg-white p-2" />
             </div>
           </div>
         </Reveal>
@@ -454,6 +477,7 @@ const CTABand = () => {
 
 const Home = () => (
   <main data-testid="home-page">
+    <BrandIntro />
     <Hero />
     <Chapters />
     <Capacity />
