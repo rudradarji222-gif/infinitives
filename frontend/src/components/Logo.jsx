@@ -1,4 +1,4 @@
-const LOGO_SRC = '/assets/logo-correct.jpeg';
+const LOGO_SRC = '/assets/logo-transparent.png';
 
 const Logo = ({ dark = false, compact = false }) => (
   <div

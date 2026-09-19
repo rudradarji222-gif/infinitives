@@ -26,6 +26,12 @@ Client runs a nutraceutical plant and previously had the NutriEdge Lifescience w
 - Mr. Vipul Dobariya — OEM — +91 99133 29449
 - Email: info@infinitiveshealthcare.com
 
+## Implemented (2026-09-19, v4)
+- Logo white background removed (transparent PNG auto-cropped, /assets/logo-transparent.png) — merges into navbar, marquee, hero watermark, why-us medallion; dark surfaces keep a deliberate white pill card
+- Heavy brand-intro overlay REMOVED per client feedback; hero reveal is instant again
+- New futuristic interactions: cursor-following tri-color glow (desktop), 3D tilt on hero product photo (mouse-tracked), mouse-parallax floating pill chips, magnetic CTA buttons, animated count-up stats (1M+, 15+, 14, 100+)
+- Fixed JSX regression: three hero floating cards had className leaking as visible text
+
 ## Implemented (2026-09-19, v3)
 - Correct official logo (client-uploaded JPEG, used as-is) now everywhere: navbar, mobile menu, footer (white pill card on dark), marquee separators, hero watermark (slow float), why-us medallion, favicon, og:image. Old hand-drawn SVG logo removed
 - New front-page animation: brand intro overlay — logo blurs/scales in on white, then slides up to reveal the hero; hero line-reveal choreography re-timed to start after the intro
