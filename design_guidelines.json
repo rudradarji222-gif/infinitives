@@ -1,0 +1,227 @@
+{
+  "brand_identity": {
+    "name": "Infinitives Healthcare",
+    "tagline": "Excellence in Every Dose",
+    "industry": "Nutraceutical Manufacturing, OEM, Third-Party Contract Manufacturing & Exports",
+    "tone": "Ultra-Premium, Science-Backed, Editorial High-Tech, Trusted Global Manufacturer",
+    "target_audience": "Pharmaceutical brand owners, dietary supplement companies, global exporters, healthcare distributors, wellness brand founders",
+    "inquiry_email": "info@infinitiveshealthcare.com"
+  },
+  "design_archetype": {
+    "style": "Nutriva-Inspired High-Impact Editorial & Precision Engineering",
+    "description": "Combines huge oversized display typography, fluid organic gradient backdrops, floating glassmorphic product and capability cards, kinetic motion, and the vibrant triple-color infinity motif (Magenta Pink, Bright Azure Blue, Warm Amber Yellow) grounded on pure slate black and clinical porcelain white surfaces.",
+    "key_references": "Nutriva supplement landing visual language + Swiss structural grid layout + modern high-tech cleanroom aesthetic"
+  },
+  "color_palette": {
+    "primary_brand_infinity_magenta": "#E91E63",
+    "primary_brand_infinity_pink_accent": "#EC4899",
+    "secondary_brand_infinity_blue": "#0284C7",
+    "secondary_brand_infinity_azure": "#38BDF8",
+    "tertiary_brand_infinity_amber": "#F59E0B",
+    "dark_slate_wordmark": "#0F172A",
+    "dark_void_surface": "#090D16",
+    "light_background": "#F8FAFC",
+    "porcelain_card_bg": "#FFFFFF",
+    "glass_border_light": "rgba(255, 255, 255, 0.4)",
+    "glass_border_dark": "rgba(255, 255, 255, 0.1)",
+    "sage_gradient_hero_stop": "rgba(236, 72, 153, 0.08)",
+    "azure_gradient_hero_stop": "rgba(56, 189, 248, 0.08)"
+  },
+  "typography": {
+    "headings": {
+      "font_family": "'Plus Jakarta Sans', 'Outfit', sans-serif",
+      "h1_hero": "text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08]",
+      "h2_section": "text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight leading-snug",
+      "h3_subsection": "text-xl sm:text-2xl font-semibold tracking-tight",
+      "h4_card": "text-lg sm:text-xl font-semibold"
+    },
+    "body": {
+      "font_family": "'Inter', 'DM Sans', sans-serif",
+      "large": "text-lg text-slate-600 dark:text-slate-300 leading-relaxed",
+      "normal": "text-base text-slate-600 dark:text-slate-300 leading-relaxed",
+      "small": "text-sm text-slate-500 dark:text-slate-400"
+    },
+    "overline_label": "text-xs font-bold uppercase tracking-[0.2em] text-pink-600 dark:text-pink-400"
+  },
+  "key_contact_executives": [
+    {
+      "name": "Mr. Nikunj Patel",
+      "role": "EXPORT DIVISION",
+      "phone": "+91 7041783028",
+      "clean_phone": "+917041783028",
+      "badge": "Global Trade & International Logistics",
+      "email": "info@infinitiveshealthcare.com"
+    },
+    {
+      "name": "Mr. Miraj Sabalpara",
+      "role": "THIRD-PARTY MANUFACTURING",
+      "phone": "+91 9825959338",
+      "clean_phone": "+919825959338",
+      "badge": "Contract Manufacturing & Batch Scaling",
+      "email": "info@infinitiveshealthcare.com"
+    },
+    {
+      "name": "Mr. Vipul Dobariya",
+      "role": "OEM (ORIGINAL EQUIPMENT MFG)",
+      "phone": "+91 9913329449",
+      "clean_phone": "+919913329449",
+      "badge": "Custom Formulations & Private Labeling",
+      "email": "info@infinitiveshealthcare.com"
+    }
+  ],
+  "manufacturing_capabilities": [
+    {
+      "title": "Third-Party Contract Manufacturing",
+      "description": "Full-service contract manufacturing with high-speed automated lines for tablets, capsules, softgels, protein powders, syrups, and gummies.",
+      "capacity": "1.2 Billion Doses / Year",
+      "features": ["WHO-GMP Compliant Facility", "Custom Formulations", "Rapid Batch Turnaround"]
+    },
+    {
+      "title": "OEM & Private Label Solutions",
+      "description": "End-to-end original equipment manufacturing from raw ingredient sourcing to packaging design, regulatory approval, and finished product delivery.",
+      "capacity": "500+ Active Client SKUs",
+      "features": ["Turnkey Formulation R&D", "Stability Testing", "Custom Packaging & Blistering"]
+    },
+    {
+      "title": "Global Export Operations",
+      "description": "Exporting WHO-GMP certified nutraceutical formulations across North America, Europe, Africa, SEA, and Middle East markets with full COA documentation.",
+      "capacity": "25+ Countries Served",
+      "features": ["Dossier Support (CTD/eCTD)", "International Regulatory Compliance", "Custom Export Packaging"]
+    }
+  ],
+  "product_dosage_categories": [
+    {
+      "id": "tablets",
+      "name": "Tablets",
+      "tagline": "Uncoated, Film Coated, Effervescent & Chewable",
+      "badge": "High Compression Speed",
+      "image": "https://images.unsplash.com/photo-1624362772755-4d5843e67047?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwzfHxudXRyYWNldXRpY2FsJTIwY2Fwc3VsZXMlMjB0YWJsZXRzJTIwaGVhbHRoJTIwc3VwcGxlbWVudHN8ZW58MHx8fHwxNzg5ODA2MzU0fDA&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "id": "capsules",
+      "name": "Capsules",
+      "tagline": "Hard Gelatin & HPMC Vegetarian Capsules",
+      "badge": "Precise Weight Fill",
+      "image": "https://images.unsplash.com/photo-1664956618021-73c47736845e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwxfHxudXRyYWNldXRpY2FsJTIwY2Fwc3VsZXMlMjB0YWJsZXRzJTIwaGVhbHRoJTIwc3VwcGxlbWVudHN8ZW58MHx8fHwxNzg5ODA2MzU0fDA&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "id": "softgels",
+      "name": "Softgel Capsules",
+      "tagline": "Omega Oils, Vitamin D3, CoQ10 & Herbal Oils",
+      "badge": "Hermetically Sealed",
+      "image": "https://images.unsplash.com/photo-1622227922682-56c92e523e58?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHw0fHxudXRyYWNldXRpY2FsJTIwY2Fwc3VsZXMlMjB0YWJsZXRzJTIwaGVhbHRoJTIwc3VwcGxlbWVudHN8ZW58MHx8fHwxNzg5ODA2MzU0fDA&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "id": "powders",
+      "name": "Protein Powders & Sachets",
+      "tagline": "Whey, Plant Protein, BCAA & Multivitamin Powders",
+      "badge": "Homogeneous Blending",
+      "image": "https://images.unsplash.com/photo-1732900293895-233f769299b3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwyfHxudXRyYWNldXRpY2FsJTIwY2Fwc3VsZXMlMjB0YWJsZXRzJTIwaGVhbHRoJTIwc3VwcGxlbWVudHN8ZW58MHx8fHwxNzg5ODA2MzU0fDA&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "id": "syrups",
+      "name": "Oral Liquids & Syrups",
+      "tagline": "Herbal Syrups, Tonics, Energy Shots & Drops",
+      "badge": "Sterile Liquid Line",
+      "image": "https://images.unsplash.com/photo-1669101283516-e608dcf142df?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwyfHxzdXBwbGVtZW50JTIwYm90dGxlJTIwbWFudWZhY3R1cmluZyUyMGxhYm9yYXRvcnklMjBjbGVhbnJvb218ZW58MHx8fHwxNzg5ODA2MzU0fDA&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "id": "gummies",
+      "name": "Nutraceutical Gummies",
+      "tagline": "Pectin & Gelatin Based Vitamin & Mineral Gummies",
+      "badge": "Modern Tasty Formats",
+      "image": "https://images.pexels.com/photos/5953827/pexels-photo-5953827.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    }
+  ],
+  "image_urls": {
+    "hero_facility_cleanroom": "https://images.pexels.com/photos/5118462/pexels-photo-5118462.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "lab_testing_quality": "https://images.unsplash.com/photo-1669101283561-642d16d924ba?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHxfHxzdXBwbGVtZW50JTIwYm90dGxlJTIwbWFudWZhY3R1cmluZyUyMGxhYm9yYXRvcnklMjBjbGVhbnJvb218ZW58MHx8fHwxNzg5ODA2MzU0fDA&ixlib=rb-4.1.0&q=85",
+    "machinery_reactor": "https://images.unsplash.com/photo-1513828170880-00eeeac21306?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2ODl8MHwxfHNlYXJjaHw0fHxtb2Rlcm4lMjBwaGFybWFjZXV0aWNhbCUyMGZhY3RvcnklMjBtYWNoaW5lcnklMjBwcm9kdWN0aW9ufGVufDB8fHx8MTc4OTgwNjM1NHww&ixlib=rb-4.1.0&q=85",
+    "production_conveyor": "https://images.unsplash.com/photo-1589792924333-edbfbe7c8be7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA6ODl8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBwaGFybWFjZXV0aWNhbCUyMGZhY3RvcnklMjBtYWNoaW5lcnklMjBwcm9kdWN0aW9ufGVufDB8fHx8MTc4OTgwNjM1NHww&ixlib=rb-4.1.0&q=85",
+    "factory_hall": "https://images.unsplash.com/photo-1621954938124-02e637ba3584?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA6ODl8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBwaGFybWFjZXV0aWNhbCUyMGZhY3RvcnklMjBtYWNoaW5lcnklMjBwcm9kdWN0aW9ufGVufDB8fHx8MTc4OTgwNjM1NHww&ixlib=rb-4.1.0&q=85"
+  },
+  "site_pages_and_routes": [
+    {
+      "path": "/",
+      "name": "Home",
+      "key_components": ["HeroWithOversizedTypography", "InfinityColorBrandRibbon", "ManufacturingCapabilitiesBento", "InteractiveProductCategoryShowcase", "FacilityTour3DPreview", "ContactExecutiveCards", "InteractiveQuoteForm", "CertificationsTrustBar"]
+    },
+    {
+      "path": "/about",
+      "name": "About Us",
+      "key_components": ["VisionMissionHero", "ManufacturingPlantTimeline", "LeadershipTeam", "QualityPolicy", "GlobalPresenceMap"]
+    },
+    {
+      "path": "/manufacturing",
+      "name": "Manufacturing & R&D",
+      "key_components": ["CleanroomStandards", "ThirdPartyProcessWorkflow", "OEMPrivateLabelGuide", "LabEquipmentSpecs", "RAndDCapabilities"]
+    },
+    {
+      "path": "/products",
+      "name": "Product Range",
+      "key_components": ["DosageCategoryFilter", "ProductGrid", "InteractiveFormulationRequestModal", "COASpecificationDownload"]
+    },
+    {
+      "path": "/products/:productId",
+      "name": "Product Detail",
+      "key_components": ["ProductHeroImageGallery", "FormulationDetailsTable", "PackagingOptions", "BulkInquiryTrigger"]
+    },
+    {
+      "path": "/quality",
+      "name": "Quality & Certifications",
+      "key_components": ["WHOGMPCertificateShowcase", "ISO22000Grid", "TestingLabFlowchart", "QualityAssuranceChecklist"]
+    },
+    {
+      "path": "/gallery",
+      "name": "Plant & Facility Gallery",
+      "key_components": ["HighResFacilityPhotoGrid", "MachineryVideoHighlights", "CleanroomVirtualTour"]
+    },
+    {
+      "path": "/contact",
+      "name": "Contact Us",
+      "key_components": ["DirectExecutiveContactGrid", "WorkingInquiryFormToEmail", "InteractiveAddressPlaceholderCard", "GoogleMapContainer"]
+    }
+  ],
+  "special_features": {
+    "language_switcher": {
+      "supported_languages": ["EN (English)", "HI (Hindi)", "GU (Gujarati)", "ES (Spanish)", "FR (French)"],
+      "type": "Interactive header dropdown with instant UI translation state"
+    },
+    "seo_sitemap": {
+      "sitemap_url": "/sitemap.xml",
+      "robots_url": "/robots.txt",
+      "status": "Generated dynamically & downloadable for Search Console submission"
+    },
+    "inquiry_handling": {
+      "destination_email": "info@infinitiveshealthcare.com",
+      "backend_endpoint": "/api/inquiry",
+      "toast_notification": "Sonner toast popup on submit + instant DB receipt creation"
+    },
+    "batch_calculator": {
+      "name": "Interactive Formulation Batch & Cost Estimator",
+      "function": "Allows clients to select Dosage Form + Quantity (e.g., 50,000 Capsules) + Packaging Type (Blister/Bottle) to generate an instant Manufacturing Inquiry summary."
+    }
+  },
+  "component_treatments": {
+    "header": {
+      "type": "Floating Glassmorphic Navbar with Infinity Brand Logo",
+      "features": ["Logo with animated pink-blue-amber infinity emblem", "Desktop Nav Links", "Language Switcher Dropdown", "RFQ Primary CTA Button", "Mobile Slide Drawer"]
+    },
+    "cards": {
+      "style": "Subtle border with inner glow on hover, rounded-2xl, p-6 or p-8",
+      "hover_effect": "Transform scale 1.02 + shadow-xl + glowing infinity color edge highlight"
+    },
+    "buttons": {
+      "primary": "bg-gradient-to-r from-pink-600 via-sky-500 to-amber-500 hover:opacity-90 text-white font-semibold rounded-full px-8 py-4 shadow-lg transition-all transform active:scale-95",
+      "secondary": "bg-slate-900 text-white hover:bg-slate-800 rounded-full px-6 py-3 border border-slate-700 font-medium"
+    }
+  },
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "Ensure every interactive button, input, tab, link, and form element includes data-testid attribute in kebab-case format.",
+    "Do NOT use transparent backgrounds on header, overlays, or floating menus without solid backdrop-blur or opacity background.",
+    "All form inquiries must submit to the backend endpoint and display a clear confirmation state targeting info@infinitiveshealthcare.com.",
+    "Do NOT mention Nutriedge anywhere in the application; replace all branding strictly with Infinitives Healthcare ('Excellence in Every Dose').",
+    "Follow generous spacing (p-8 to p-24) to create an ultra-luxurious, Awwwards-winning nutraceutical factory site.",
+    "Keep designated empty space cards with badges for 'Official Plant Address to be added' as requested by client."
+  ]
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://healthcare-hub-322.preview.emergentagent.com/sitemap.xml
