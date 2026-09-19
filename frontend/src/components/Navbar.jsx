@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import Logo from './Logo';
 import { navLinks } from '../data/content';
 import { useLang } from '../i18n/LanguageContext';
-import { LANGUAGES } from '../i18n/translations';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [langOpen, setLangOpen] = useState(false);
-  const { lang, setLang, t } = useLang();
+  const { t } = useLang();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,8 +18,6 @@ const Navbar = () => {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  const current = LANGUAGES.find((l) => l.code === lang) || LANGUAGES[0];
 
   return (
     <header
@@ -52,42 +49,7 @@ const Navbar = () => {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <div className="relative">
-            <button
-              data-testid="language-switcher-button"
-              onClick={() => setLangOpen((v) => !v)}
-              className="flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-xs font-bold text-slate-700 backdrop-blur transition hover:border-pink-300"
-            >
-              <Globe size={14} />
-              {current.short}
-            </button>
-            <AnimatePresence>
-              {langOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute right-0 mt-2 w-40 overflow-hidden rounded-2xl glass-card p-1.5"
-                  data-testid="language-dropdown"
-                >
-                  {LANGUAGES.map((l) => (
-                    <button
-                      key={l.code}
-                      data-testid={`lang-option-${l.code}`}
-                      onClick={() => { setLang(l.code); setLangOpen(false); }}
-                      className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold transition ${
-                        lang === l.code ? 'bg-slate-900 text-white' : 'text-slate-700 hover:bg-slate-100'
-                      }`}
-                    >
-                      {l.label}
-                      <span className="text-[10px] opacity-60">{l.short}</span>
-                    </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+          <LanguageSwitcher />
           <button
             data-testid="nav-quote-button"
             onClick={() => navigate('/contact')}
@@ -146,19 +108,8 @@ const Navbar = () => {
                   </NavLink>
                 </motion.div>
               ))}
-              <div className="mt-8 flex flex-wrap gap-2">
-                {LANGUAGES.map((l) => (
-                  <button
-                    key={l.code}
-                    data-testid={`mobile-lang-${l.code}`}
-                    onClick={() => setLang(l.code)}
-                    className={`rounded-full border px-4 py-2 text-xs font-bold ${
-                      lang === l.code ? 'border-pink-500 bg-pink-500 text-white' : 'border-white/20 text-white/70'
-                    }`}
-                  >
-                    {l.short}
-                  </button>
-                ))}
+              <div className="mt-8">
+                <LanguageSwitcher dark />
               </div>
             </nav>
           </motion.div>

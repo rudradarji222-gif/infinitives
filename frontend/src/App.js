@@ -4,7 +4,6 @@ import Lenis from 'lenis';
 import { motion, useScroll } from 'framer-motion';
 import { LanguageProvider } from './i18n/LanguageContext';
 import Navbar from './components/Navbar';
-import CursorGlow from './components/CursorGlow';
 import Footer from './components/Footer';
 import WhatsAppFloat from './components/WhatsAppFloat';
 import Home from './pages/Home';
@@ -56,7 +55,6 @@ function App() {
       <BrowserRouter>
         <ScrollToTop />
         <ScrollProgress />
-        <CursorGlow />
         <div className="min-h-screen bg-[#f8fafc]">
           <Navbar />
           <Routes>

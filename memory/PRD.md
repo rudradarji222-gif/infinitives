@@ -26,6 +26,10 @@ Client runs a nutraceutical plant and previously had the NutriEdge Lifescience w
 - Mr. Vipul Dobariya — OEM — +91 99133 29449
 - Email: info@infinitiveshealthcare.com
 
+## Implemented (2026-09-19, v5)
+- Cursor-following glow removed per client request
+- Language system replaced with the NutriEdge-style Google Translate switcher: 133 languages, searchable dropdown, styled to match the brand (navbar + mobile menu), Google toolbar hidden via CSS. Old 5-language custom dictionary kept dormant (context still present but unused by switcher)
+
 ## Implemented (2026-09-19, v4)
 - Logo white background removed (transparent PNG auto-cropped, /assets/logo-transparent.png) — merges into navbar, marquee, hero watermark, why-us medallion; dark surfaces keep a deliberate white pill card
 - Heavy brand-intro overlay REMOVED per client feedback; hero reveal is instant again
