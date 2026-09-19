@@ -115,6 +115,8 @@ export const certifications = [
   'COC', 'ISO 22000', 'ISO 9001', 'cGMP', 'NAFDAC',
 ];
 
+export const licenses = Array.from({ length: 11 }, (_, i) => `/assets/licenses/license-${i + 1}.webp`);
+
 export const countries = [
   'Myanmar', 'Philippines', 'Cambodia', 'Laos', 'Mauritius', 'Bhutan', 'Nepal',
   'Tanzania', 'Venezuela', 'Kosovo', 'Belarus', 'Nigeria', 'Ghana', 'Congo', 'Mali',
@@ -185,10 +187,10 @@ export const marqueeItems = [
 ];
 
 export const dosageShowcase = [
-  { id: 'immunity-multivitamin', name: 'Tablets & Multivitamins', tagline: 'Film-coated, chewable & daily wellness', image: images.tablets, accent: '#e91e63' },
-  { id: 'orthopedic', name: 'Capsules', tagline: 'Hard gelatin & HPMC vegetarian', image: images.capsules, accent: '#0284c7' },
-  { id: 'cardiac', name: 'Softgel Capsules', tagline: 'Omega oils, Vitamin D3, CoQ10', image: images.softgels, accent: '#f59e0b' },
-  { id: 'protein', name: 'Protein Powders', tagline: 'Whey, plant protein & BCAA blends', image: images.powders, accent: '#e91e63' },
-  { id: 'pediatric', name: 'Syrups & Drops', tagline: 'Tonics, shots & pediatric nutrition', image: images.hero, accent: '#0284c7' },
-  { id: 'gummy-candy', name: 'Nutraceutical Gummies', tagline: 'Pectin & gelatin based tasty formats', image: images.gummies, accent: '#f59e0b' },
+  { id: 'immunity-multivitamin', name: 'Tablets & Multivitamins', tagline: 'Film-coated, chewable & daily wellness', image: '/assets/categories/immunity-multivitamin.webp', accent: '#e91e63' },
+  { id: 'orthopedic', name: 'Capsules', tagline: 'Hard gelatin & HPMC vegetarian', image: '/assets/categories/orthopedic.webp', accent: '#0284c7' },
+  { id: 'cardiac', name: 'Softgel Capsules', tagline: 'Omega oils, Vitamin D3, CoQ10', image: '/assets/categories/cardiac.webp', accent: '#f59e0b' },
+  { id: 'protein', name: 'Protein Powders', tagline: 'Whey, plant protein & BCAA blends', image: '/assets/categories/protein.webp', accent: '#e91e63' },
+  { id: 'pediatric', name: 'Syrups & Drops', tagline: 'Tonics, shots & pediatric nutrition', image: '/assets/categories/pediatric.webp', accent: '#0284c7' },
+  { id: 'gummy-candy', name: 'Nutraceutical Gummies', tagline: 'Pectin & gelatin based tasty formats', image: '/assets/categories/gummy-candy.webp', accent: '#f59e0b' },
 ];

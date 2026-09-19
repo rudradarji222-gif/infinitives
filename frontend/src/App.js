@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
+import { motion, useScroll } from 'framer-motion';
 import { LanguageProvider } from './i18n/LanguageContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -13,6 +14,17 @@ import RnD from './pages/RnD';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import { Toaster } from './components/ui/sonner';
+
+const ScrollProgress = () => {
+  const { scrollYProgress } = useScroll();
+  return (
+    <motion.div
+      data-testid="scroll-progress-bar"
+      className="fixed left-0 right-0 top-0 z-[70] h-1 origin-left bg-gradient-to-r from-pink-600 via-sky-500 to-amber-500"
+      style={{ scaleX: scrollYProgress }}
+    />
+  );
+};
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -42,6 +54,7 @@ function App() {
     <LanguageProvider>
       <BrowserRouter>
         <ScrollToTop />
+        <ScrollProgress />
         <div className="min-h-screen bg-[#f8fafc]">
           <Navbar />
           <Routes>

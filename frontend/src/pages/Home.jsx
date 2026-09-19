@@ -3,9 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import {
   ArrowUpRight, ArrowRight, ShieldCheck, Factory, Package, Boxes, ScanSearch,
-  Headphones, Leaf, Star, MapPin, Phone, CheckCircle2,
+  Headphones, Leaf, Star, MapPin, Phone, CheckCircle2, FlaskConical, Microscope,
+  Warehouse, Truck, ChevronDown,
 } from 'lucide-react';
 import Marquee from '../components/Marquee';
+import LicenseSlider from '../components/LicenseSlider';
+import Logo from '../components/Logo';
 import { Reveal, MaskedLine, FadeIn, SectionHead } from '../components/Reveal';
 import { useLang } from '../i18n/LanguageContext';
 import {
@@ -35,6 +38,10 @@ const Hero = () => {
           <path d="M96 20 C96 40 80 50 70 40 C60 30 52 18 42 18 C30 18 22 30 30 40 C38 50 54 44 60 32" stroke="#0284c7" strokeWidth="10" strokeLinecap="round" fill="none" />
         </svg>
       </motion.div>
+
+      <motion.div className="pointer-events-none absolute -left-24 top-1/3 h-80 w-80 rounded-full bg-pink-500/15 blur-3xl" animate={{ x: [0, 50, 0], y: [0, -35, 0] }} transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }} />
+      <motion.div className="pointer-events-none absolute -right-16 bottom-24 h-96 w-96 rounded-full bg-sky-400/15 blur-3xl" animate={{ x: [0, -45, 0], y: [0, 30, 0] }} transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }} />
+      <motion.div className="pointer-events-none absolute bottom-8 left-1/3 h-64 w-64 rounded-full bg-amber-400/15 blur-3xl" animate={{ x: [0, 30, 0], y: [0, -25, 0] }} transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut' }} />
 
       <div className="relative mx-auto w-full max-w-7xl flex-1 px-5 sm:px-8">
         <FadeIn delay={0.15}>
@@ -92,8 +99,12 @@ const Hero = () => {
               className="relative"
             >
               <div className="absolute inset-0 -z-10 scale-110 rounded-full bg-gradient-to-tr from-pink-500/25 via-sky-400/25 to-amber-400/25 blur-3xl" />
+              <div className="animate-spin-slow absolute -inset-10 -z-10 rounded-full border-2 border-dashed border-slate-300/80" />
+              <span className="animate-float absolute -left-14 top-10 h-5 w-14 rounded-full bg-gradient-to-r from-pink-500 to-rose-400 shadow-lg shadow-pink-500/40" />
+              <span className="animate-float-slow absolute -right-12 top-1/3 h-5 w-14 rotate-45 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 shadow-lg shadow-sky-500/40" />
+              <span className="animate-float absolute -bottom-4 -left-8 h-5 w-12 -rotate-12 rounded-full bg-gradient-to-r from-amber-400 to-yellow-300 shadow-lg shadow-amber-500/40" style={{ animationDelay: '1.2s' }} />
               <img
-                src={images.hero}
+                src="/assets/categories/gummy-candy.webp"
                 alt="Infinitives Healthcare finished formulation"
                 data-testid="hero-product-image"
                 className="h-[24rem] w-72 rounded-[2.5rem] border-4 border-white object-cover shadow-2xl shadow-slate-900/25"
@@ -136,6 +147,10 @@ const Hero = () => {
           </FadeIn>
         </div>
       </div>
+
+      <motion.div className="absolute bottom-28 left-1/2 z-20 hidden -translate-x-1/2 lg:block" animate={{ y: [0, 10, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}>
+        <ChevronDown size={22} className="text-slate-400" />
+      </motion.div>
 
       <div className="relative z-10 mt-auto border-t border-slate-200/60 bg-white/50 backdrop-blur">
         <Marquee items={marqueeItems} />
@@ -265,25 +280,65 @@ const ProductShowcase = () => {
   );
 };
 
+const LicenseSection = () => (
+  <section className="py-20 sm:py-24" data-testid="licenses-section">
+    <div className="mx-auto max-w-7xl px-5 sm:px-8">
+      <SectionHead
+        overline="Licensed & certified"
+        title="Audited for the world's strictest markets"
+        sub="Eleven certifications and licenses stand behind every batch that leaves our plant."
+      />
+    </div>
+    <LicenseSlider />
+  </section>
+);
+
+const PROCESS_ICONS = [FlaskConical, Factory, Microscope, Package, ShieldCheck, Boxes, Warehouse, Truck];
+
 const Process = () => {
   const { t } = useLang();
   return (
-    <section className="relative overflow-hidden bg-white py-24 sm:py-32" data-testid="process-section">
+    <section className="relative overflow-hidden bg-white py-24 sm:py-32 lg:pb-44" data-testid="process-section">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHead overline={t('procOverline')} title={t('procTitle')} sub={t('procSub')} />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {processSteps.map((p, i) => (
-            <Reveal key={p.step} delay={i * 0.05}>
-              <div className="group relative h-full rounded-3xl border border-slate-100 bg-[#f8fafc] p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-pink-200 hover:shadow-xl hover:shadow-pink-500/5" data-testid={`process-step-${p.step}`}>
-                <span className="font-display text-5xl font-extrabold text-slate-200 transition-colors duration-300 group-hover:text-infinity-gradient">{p.step}</span>
-                <h3 className="font-display mt-4 text-lg font-bold text-slate-900">{p.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-500">{p.description}</p>
-              </div>
-            </Reveal>
-          ))}
+        <div className="relative">
+          <div className="absolute left-[6%] right-[6%] top-20 hidden h-0.5 rounded-full bg-gradient-to-r from-pink-500 via-sky-500 to-amber-400 opacity-40 lg:block" />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {processSteps.map((p, i) => {
+              const Icon = PROCESS_ICONS[i] || Factory;
+              return (
+                <Reveal key={p.step} delay={i * 0.05} className={i % 2 ? 'lg:mt-16' : ''}>
+                  <div className="group relative h-full rounded-[3rem] border border-slate-100 bg-[#f8fafc] px-6 py-10 text-center transition-all duration-300 hover:-translate-y-2 hover:border-pink-200 hover:shadow-xl hover:shadow-pink-500/10" data-testid={`process-step-${p.step}`}>
+                    <span className="font-display absolute right-6 top-6 text-sm font-extrabold text-slate-300 transition group-hover:text-pink-500">{p.step}</span>
+                    <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white text-slate-800 shadow-md ring-1 ring-slate-100 transition-all duration-300 group-hover:scale-110 group-hover:bg-slate-900 group-hover:text-white">
+                      <Icon size={24} />
+                    </span>
+                    <h3 className="font-display mt-5 text-base font-bold text-slate-900">{p.name}</h3>
+                    <p className="mt-2 text-xs leading-relaxed text-slate-500">{p.description}</p>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
+  );
+};
+
+const WhyCard = ({ p, i, alignRight = false }) => {
+  const Icon = PRINCIPLE_ICONS[p.icon] || Factory;
+  return (
+    <Reveal delay={i * 0.07}>
+      <div className={`group relative h-full overflow-hidden rounded-3xl bg-white p-7 shadow-sm ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl ${alignRight ? 'lg:text-right' : ''}`} data-testid={`principle-${p.number}`}>
+        <span className={`font-display absolute top-4 text-sm font-extrabold text-slate-200 transition group-hover:text-pink-400 ${alignRight ? 'left-5' : 'right-5'}`}>{p.number}</span>
+        <span className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-600/10 via-sky-500/10 to-amber-500/10 text-slate-800 transition group-hover:scale-110 ${alignRight ? 'lg:ml-auto' : ''}`}>
+          <Icon size={22} />
+        </span>
+        <h3 className="font-display mt-4 text-lg font-bold text-slate-900">{p.title}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-slate-500">{p.description}</p>
+      </div>
+    </Reveal>
   );
 };
 
@@ -292,21 +347,23 @@ const WhyUs = () => {
   return (
     <section className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32" data-testid="why-us-section">
       <SectionHead overline={t('whyOverline')} title={t('whyTitle')} sub={t('whySub')} />
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {principles.map((p, i) => {
-          const Icon = PRINCIPLE_ICONS[p.icon] || Factory;
-          return (
-            <Reveal key={p.number} delay={i * 0.06}>
-              <div className="group h-full rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl" data-testid={`principle-${p.number}`}>
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-600/10 via-sky-500/10 to-amber-500/10 text-slate-800 transition group-hover:scale-110">
-                  <Icon size={22} />
-                </span>
-                <h3 className="font-display mt-5 text-lg font-bold text-slate-900">{p.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-500">{p.description}</p>
-              </div>
-            </Reveal>
-          );
-        })}
+      <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto_1fr]">
+        <div className="order-2 space-y-5 lg:order-1">
+          {principles.slice(0, 3).map((p, i) => <WhyCard key={p.number} p={p} i={i} alignRight />)}
+        </div>
+        <Reveal className="order-1 flex justify-center lg:order-2">
+          <div className="relative flex h-64 w-64 items-center justify-center sm:h-80 sm:w-80" data-testid="why-us-medallion">
+            <div className="animate-spin-slow absolute inset-0 rounded-full border-2 border-dashed border-slate-300" />
+            <div className="absolute inset-6 rounded-full bg-gradient-to-br from-pink-500/10 via-sky-500/10 to-amber-400/10" />
+            <div className="glass-card flex h-44 w-44 flex-col items-center justify-center rounded-full sm:h-56 sm:w-56">
+              <Logo compact />
+              <span className="mt-3 text-[9px] font-bold uppercase tracking-[0.3em] text-slate-500">Every Dose</span>
+            </div>
+          </div>
+        </Reveal>
+        <div className="order-3 space-y-5">
+          {principles.slice(3).map((p, i) => <WhyCard key={p.number} p={p} i={i + 3} />)}
+        </div>
       </div>
     </section>
   );
@@ -400,6 +457,7 @@ const Home = () => (
     <Hero />
     <Chapters />
     <Capacity />
+    <LicenseSection />
     <ProductShowcase />
     <Process />
     <WhyUs />

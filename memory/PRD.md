@@ -26,7 +26,15 @@ Client runs a nutraceutical plant and previously had the NutriEdge Lifescience w
 - Mr. Vipul Dobariya — OEM — +91 99133 29449
 - Email: info@infinitiveshealthcare.com
 
-## Implemented (2026-09-19)
+## Implemented (2026-09-19, v2)
+- Real client product photos uploaded per category (all 15 categories, /assets/categories/*.webp) — used on Products grid, Product Detail heroes, Home dosage showcase, Gallery
+- Hero center image now uses the real gummy-candy product photo with rotating dashed ring, floating gradient pill chips, and animated ambient orbs
+- License/certification badge images (11, from client upload) shown in an infinite sliding strip — new "Licensed & Certified" section on Home and on the R&D page (LicenseSlider component)
+- Process section redesigned as capsule cards alternating along a gradient line (Nutralike-style reference)
+- Why-Us redesigned as circular hub: spinning dashed-ring logo medallion with 6 numbered cards flanking it
+- Scroll progress bar (brand gradient) added at top of every page
+
+## Implemented (2026-09-19, v1)
 - Full multi-page site with Nutriva-inspired editorial hero ("EXCELLENCE IN EVERY DOSE" masked line-by-line reveal, floating glass cards, parallax product image, slow marquee)
 - Numbered manifesto chapters: 01 Third-Party Mfg, 02 OEM & Private Label, 03 Global Export
 - Plant capacity dark bento (1M+ doses/day etc.), 8-step process, 6 principles, global presence (15 countries), certifications strip, testimonials, CTA band

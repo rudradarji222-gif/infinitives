@@ -4,6 +4,7 @@ import { PageHero } from './About';
 import { useLang } from '../i18n/LanguageContext';
 import { images, rndCapabilities, certifications } from '../data/content';
 import Marquee from '../components/Marquee';
+import LicenseSlider from '../components/LicenseSlider';
 
 const ICONS = { FlaskConical, Microscope, Thermometer, Lightbulb, FileCheck, Wand2 };
 
@@ -77,6 +78,9 @@ const RnD = () => {
               </Reveal>
             ))}
           </div>
+          <Reveal delay={0.15} className="mt-14">
+            <LicenseSlider dark />
+          </Reveal>
         </div>
       </section>
 

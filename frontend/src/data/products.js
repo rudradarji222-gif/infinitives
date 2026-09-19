@@ -1,25 +1,14 @@
 import { productCatalogue as base } from './catalogueData';
-import { images } from './content';
 
-const imageMap = {
-  'gummy-candy': images.gummies,
-  'effervescent-tablets': images.tablets,
-  'orthopedic': images.capsules,
-  'immunity-multivitamin': images.tablets,
-  'ophthal': images.softgels,
-  'gynec': images.capsules,
-  'derma': images.softgels,
-  'infertility-pcos': images.capsules,
-  'brain-neuro': images.tablets,
-  'uti': images.hero,
-  'cardiac': images.softgels,
-  'liver': images.hero,
-  'protein': images.powders,
-  'pediatric': images.gummies,
-  'gastrointestinal': images.capsules,
-};
+const CATEGORY_IDS = [
+  'gummy-candy', 'effervescent-tablets', 'orthopedic', 'immunity-multivitamin', 'ophthal',
+  'gynec', 'derma', 'infertility-pcos', 'brain-neuro', 'uti', 'cardiac', 'liver',
+  'protein', 'pediatric', 'gastrointestinal',
+];
 
-export const productCatalogue = base.map((c) => ({ ...c, image: imageMap[c.id] || images.tablets }));
+const imageMap = Object.fromEntries(CATEGORY_IDS.map((id) => [id, `/assets/categories/${id}.webp`]));
+
+export const productCatalogue = base.map((c) => ({ ...c, image: imageMap[c.id] }));
 
 export const productCategoriesShort = productCatalogue.map((c) => ({
   id: c.id,
