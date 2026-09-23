@@ -1,8 +1,7 @@
 import { Factory, Sparkles, Award, Users } from 'lucide-react';
-import Marquee from '../components/Marquee';
 import { Reveal, SectionHead } from '../components/Reveal';
 import { useLang } from '../i18n/LanguageContext';
-import { images, milestones, infrastructure, expertise, marqueeItems, certifications } from '../data/content';
+import { images, milestones, infrastructure, expertise } from '../data/content';
 import { Beaker, Tags, Globe } from 'lucide-react';
 
 const MILESTONE_ICONS = { Sparkles, Factory, Award, Users };
@@ -118,12 +117,6 @@ const About = () => {
         </div>
       </section>
 
-      <div className="border-y border-slate-200/60 bg-white/50">
-        <Marquee items={certifications} reverse />
-      </div>
-      <div className="border-b border-slate-200/60">
-        <Marquee items={marqueeItems} />
-      </div>
     </main>
   );
 };

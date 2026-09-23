@@ -26,6 +26,10 @@ Client runs a nutraceutical plant and previously had the NutriEdge Lifescience w
 - Mr. Vipul Dobariya — OEM — +91 99133 29449
 - Email: info@infinitiveshealthcare.com
 
+## Implemented (2026-09-23, v8)
+- Process section rebuilt as an animated vertical timeline: gradient line fills with scroll progress, 8 steps alternate left/right with spring pop-in icon nodes and ghost step numbers
+- Both running ticker marquees removed from the bottom of the About page (hero marquee on Home and R&D marquee remain)
+
 ## Implemented (2026-09-23, v7)
 - Scroll lag fixed: Lenis smooth-scroll library removed (native scrolling restored) and glass backdrop blur lightened 18px→10px
 - Global Export Operations chapter image replaced with client-uploaded container port + airplane photo (/assets/export-ops.webp)

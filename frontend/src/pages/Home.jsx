@@ -324,26 +324,46 @@ const PROCESS_ICONS = [FlaskConical, Factory, Microscope, Package, ShieldCheck, 
 
 const Process = () => {
   const { t } = useLang();
+  const lineRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: lineRef, offset: ['start 70%', 'end 55%'] });
+  const lineScale = useSpring(scrollYProgress, { stiffness: 80, damping: 20 });
+
   return (
-    <section className="relative overflow-hidden bg-white py-24 sm:py-32 lg:pb-44" data-testid="process-section">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+    <section className="relative overflow-hidden bg-white py-24 sm:py-32" data-testid="process-section">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHead overline={t('procOverline')} title={t('procTitle')} sub={t('procSub')} />
-        <div className="relative">
-          <div className="absolute left-[6%] right-[6%] top-20 hidden h-0.5 rounded-full bg-gradient-to-r from-pink-500 via-sky-500 to-amber-400 opacity-40 lg:block" />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div ref={lineRef} className="relative">
+          <div className="absolute left-7 top-0 h-full w-0.5 rounded-full bg-slate-100 lg:left-1/2 lg:-translate-x-1/2" />
+          <motion.div
+            className="absolute left-7 top-0 h-full w-0.5 origin-top rounded-full bg-gradient-to-b from-pink-500 via-sky-500 to-amber-400 lg:left-1/2 lg:-translate-x-1/2"
+            style={{ scaleY: lineScale }}
+          />
+          <div className="space-y-8 lg:space-y-2">
             {processSteps.map((p, i) => {
               const Icon = PROCESS_ICONS[i] || Factory;
+              const left = i % 2 === 0;
               return (
-                <Reveal key={p.step} delay={i * 0.05} className={i % 2 ? 'lg:mt-16' : ''}>
-                  <div className="group relative h-full rounded-[3rem] border border-slate-100 bg-[#f8fafc] px-6 py-10 text-center transition-all duration-300 hover:-translate-y-2 hover:border-pink-200 hover:shadow-xl hover:shadow-pink-500/10" data-testid={`process-step-${p.step}`}>
-                    <span className="font-display absolute right-6 top-6 text-sm font-extrabold text-slate-300 transition group-hover:text-pink-500">{p.step}</span>
-                    <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white text-slate-800 shadow-md ring-1 ring-slate-100 transition-all duration-300 group-hover:scale-110 group-hover:bg-slate-900 group-hover:text-white">
-                      <Icon size={24} />
-                    </span>
-                    <h3 className="font-display mt-5 text-base font-bold text-slate-900">{p.name}</h3>
-                    <p className="mt-2 text-xs leading-relaxed text-slate-500">{p.description}</p>
-                  </div>
-                </Reveal>
+                <div key={p.step} className="relative lg:grid lg:grid-cols-2 lg:items-center lg:gap-24 lg:py-6">
+                  <motion.span
+                    initial={{ scale: 0, rotate: -90 }}
+                    whileInView={{ scale: 1, rotate: 0 }}
+                    viewport={{ once: true, margin: '-60px' }}
+                    transition={{ type: 'spring', stiffness: 240, damping: 16 }}
+                    className="absolute left-7 top-8 z-10 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-white text-slate-800 shadow-lg ring-1 ring-slate-100 lg:left-1/2"
+                  >
+                    <Icon size={22} />
+                  </motion.span>
+                  <Reveal
+                    delay={0.08}
+                    className={`pl-20 lg:pl-0 ${left ? 'lg:col-start-1 lg:row-start-1 lg:pr-4 lg:text-right' : 'lg:col-start-2 lg:pl-4'}`}
+                  >
+                    <div className="group relative inline-block w-full rounded-3xl border border-slate-100 bg-[#f8fafc] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-pink-200 hover:shadow-xl hover:shadow-pink-500/10 sm:p-7" data-testid={`process-step-${p.step}`}>
+                      <span className="font-display pointer-events-none absolute -top-5 right-5 text-5xl font-extrabold text-slate-200/80 transition group-hover:text-pink-200">{p.step}</span>
+                      <h3 className="font-display text-lg font-bold text-slate-900">{p.name}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-500">{p.description}</p>
+                    </div>
+                  </Reveal>
+                </div>
               );
             })}
           </div>
