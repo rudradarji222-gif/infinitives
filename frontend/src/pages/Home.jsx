@@ -9,6 +9,7 @@ import {
 import Marquee from '../components/Marquee';
 import LicenseSlider from '../components/LicenseSlider';
 import Magnetic from '../components/Magnetic';
+import BatchEstimator from '../components/BatchEstimator';
 import { Reveal, MaskedLine, FadeIn, SectionHead } from '../components/Reveal';
 import { useLang } from '../i18n/LanguageContext';
 import {
@@ -36,151 +37,160 @@ const Hero = () => {
   const navigate = useNavigate();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const typeY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const imgY = useTransform(scrollYProgress, [0, 1], [0, 100]);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const tiltX = useSpring(useTransform(my, [-0.5, 0.5], [7, -7]), { stiffness: 120, damping: 16 });
-  const tiltY = useSpring(useTransform(mx, [-0.5, 0.5], [-9, 9]), { stiffness: 120, damping: 16 });
-  const pillX = useSpring(useTransform(mx, [-0.5, 0.5], [-26, 26]), { stiffness: 90, damping: 18 });
-  const pillY = useSpring(useTransform(my, [-0.5, 0.5], [-18, 18]), { stiffness: 90, damping: 18 });
+  const tiltX = useSpring(useTransform(my, [-0.5, 0.5], [6, -6]), { stiffness: 120, damping: 16 });
+  const tiltY = useSpring(useTransform(mx, [-0.5, 0.5], [-8, 8]), { stiffness: 120, damping: 16 });
+  const pillX = useSpring(useTransform(mx, [-0.5, 0.5], [-24, 24]), { stiffness: 90, damping: 18 });
+  const pillY = useSpring(useTransform(my, [-0.5, 0.5], [-16, 16]), { stiffness: 90, damping: 18 });
   const onHeroMouse = (e) => {
     mx.set(e.clientX / window.innerWidth - 0.5);
     my.set(e.clientY / window.innerHeight - 0.5);
   };
 
   return (
-    <section ref={ref} onMouseMove={onHeroMouse} className="hero-mesh relative flex min-h-screen flex-col overflow-hidden pt-28" data-testid="hero-section">
-      <motion.div
-        className="pointer-events-none absolute -right-24 top-24 w-[38rem] opacity-[0.07]"
-        animate={{ y: [0, 34, 0], rotate: [0, 5, 0] }}
-        transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <img src="/assets/logo-watermark.webp" alt="" className="w-full" />
-      </motion.div>
+    <section ref={ref} onMouseMove={onHeroMouse} className="dark-mesh relative flex min-h-screen flex-col overflow-hidden pt-28" data-testid="hero-section">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
+          backgroundSize: '72px 72px',
+        }}
+      />
+      <motion.div className="pointer-events-none absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-pink-600/25 blur-3xl" animate={{ x: [0, 50, 0], y: [0, -35, 0] }} transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }} />
+      <motion.div className="pointer-events-none absolute -right-24 top-16 h-[28rem] w-[28rem] rounded-full bg-sky-500/25 blur-3xl" animate={{ x: [0, -45, 0], y: [0, 30, 0] }} transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }} />
+      <motion.div className="pointer-events-none absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-amber-500/20 blur-3xl" animate={{ x: [0, 30, 0], y: [0, -25, 0] }} transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut' }} />
 
-      <motion.div className="pointer-events-none absolute -left-24 top-1/3 h-80 w-80 rounded-full bg-pink-500/15 blur-3xl" animate={{ x: [0, 50, 0], y: [0, -35, 0] }} transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }} />
-      <motion.div className="pointer-events-none absolute -right-16 bottom-24 h-96 w-96 rounded-full bg-sky-400/15 blur-3xl" animate={{ x: [0, -45, 0], y: [0, 30, 0] }} transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }} />
-      <motion.div className="pointer-events-none absolute bottom-8 left-1/3 h-64 w-64 rounded-full bg-amber-400/15 blur-3xl" animate={{ x: [0, 30, 0], y: [0, -25, 0] }} transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut' }} />
-
-      <div className="relative mx-auto w-full max-w-7xl flex-1 px-5 sm:px-8">
-        <FadeIn delay={0.15}>
-          <div className="flex justify-center">
-            <span className="glass-card rounded-full px-5 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-slate-700" data-testid="hero-overline">
+      <div className="relative mx-auto grid w-full max-w-7xl flex-1 items-center gap-14 px-5 pb-14 sm:px-8 lg:grid-cols-[1.15fr_1fr]">
+        <div>
+          <FadeIn delay={0.15}>
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-slate-300" data-testid="hero-overline">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              </span>
               {t('heroOverline')}
             </span>
-          </div>
-        </FadeIn>
+          </FadeIn>
 
-        <motion.div style={{ y: typeY }} className="relative z-10 mt-8 text-center">
-          <h1 className="font-display font-extrabold leading-[0.95] tracking-tight" data-testid="hero-title">
-            <MaskedLine delay={0.25} className="text-[13vw] text-slate-900 sm:text-[11vw] lg:text-[8.5rem]">
+          <h1 className="font-display mt-8 font-extrabold leading-[0.95] tracking-tight" data-testid="hero-title">
+            <MaskedLine delay={0.25} className="text-[14vw] text-white sm:text-7xl lg:text-[6.2rem]">
               {t('heroTitleA')}
             </MaskedLine>
-            <MaskedLine delay={0.4} className="outline-text text-[13vw] sm:text-[11vw] lg:text-[8.5rem]">
+            <MaskedLine delay={0.4} className="outline-text-light text-[14vw] sm:text-7xl lg:text-[6.2rem]">
               {t('heroTitleB')}
             </MaskedLine>
-            <MaskedLine delay={0.55} className="text-infinity-gradient text-[13vw] sm:text-[11vw] lg:text-[8.5rem]">
+            <MaskedLine delay={0.55} className="text-infinity-gradient text-[14vw] sm:text-7xl lg:text-[6.2rem]">
               {t('heroTitleC')}
             </MaskedLine>
           </h1>
-        </motion.div>
 
-        <FadeIn delay={0.85}>
-          <p className="mx-auto mt-6 max-w-xl text-center text-base leading-relaxed text-slate-600" data-testid="hero-subtitle">
-            {t('heroSub')}
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Magnetic>
-              <button
-                data-testid="hero-quote-button"
-                onClick={() => navigate('/contact')}
-                className="group flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 text-sm font-bold text-white shadow-xl shadow-slate-900/20 transition-all duration-300 hover:bg-pink-600 active:scale-95"
-              >
-                {t('ctaQuote')}
-                <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:rotate-45" />
-              </button>
-            </Magnetic>
-            <Magnetic>
-              <button
-                data-testid="hero-products-button"
-                onClick={() => navigate('/products')}
-                className="glass-card flex items-center gap-2 rounded-full px-8 py-4 text-sm font-bold text-slate-800 transition-all duration-300 hover:shadow-xl active:scale-95"
-              >
-                {t('ctaProducts')}
-                <ArrowRight size={16} />
-              </button>
-            </Magnetic>
-          </div>
-        </FadeIn>
-
-        <div className="relative mt-10 hidden h-[26rem] lg:block">
-          <motion.div style={{ y: imgY }} className="absolute left-1/2 top-0 z-10 -translate-x-1/2">
-            <motion.div
-              initial={{ opacity: 0, y: 60, scale: 0.94 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: 0.7, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-              style={{ rotateX: tiltX, rotateY: tiltY, transformPerspective: 1000 }}
-              className="relative"
-            >
-              <div className="absolute inset-0 -z-10 scale-110 rounded-full bg-gradient-to-tr from-pink-500/25 via-sky-400/25 to-amber-400/25 blur-3xl" />
-              <div className="animate-spin-slow absolute -inset-10 -z-10 rounded-full border-2 border-dashed border-slate-300/80" />
-              <motion.div className="pointer-events-none absolute inset-0" style={{ x: pillX, y: pillY }}>
-                <span className="animate-float absolute -left-14 top-10 h-5 w-14 rounded-full bg-gradient-to-r from-pink-500 to-rose-400 shadow-lg shadow-pink-500/40" />
-                <span className="animate-float-slow absolute -right-12 top-1/3 h-5 w-14 rotate-45 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 shadow-lg shadow-sky-500/40" />
-                <span className="animate-float absolute -bottom-4 -left-8 h-5 w-12 -rotate-12 rounded-full bg-gradient-to-r from-amber-400 to-yellow-300 shadow-lg shadow-amber-500/40" style={{ animationDelay: '1.2s' }} />
-              </motion.div>
-              <img
-                src="/assets/categories/gummy-candy.webp"
-                alt="Infinitives Healthcare finished formulation"
-                data-testid="hero-product-image"
-                className="h-[24rem] w-72 rounded-[2.5rem] border-4 border-white object-cover shadow-2xl shadow-slate-900/25"
-              />
-            </motion.div>
-          </motion.div>
-
-          <FadeIn delay={1.05} className="absolute left-8 top-8 z-20">
-            <div className="glass-card animate-float w-64 rounded-3xl p-5" data-testid="hero-card-formulation">
-              <div className="flex items-center gap-3">
-                <img src={images.gummies} alt="Gummies" className="h-12 w-12 rounded-2xl object-cover" />
-                <div>
-                  <p className="text-sm font-bold text-slate-900">{t('heroCard1Title')}</p>
-                  <p className="text-xs text-slate-500">{t('heroCard1Sub')}</p>
-                </div>
-              </div>
+          <FadeIn delay={0.85}>
+            <p className="mt-7 max-w-lg text-base leading-relaxed text-slate-400" data-testid="hero-subtitle">
+              {t('heroSub')}
+            </p>
+            <div className="mt-9 flex flex-wrap items-center gap-4">
+              <Magnetic>
+                <button
+                  data-testid="hero-quote-button"
+                  onClick={() => navigate('/contact')}
+                  className="group flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-slate-900 shadow-xl shadow-black/30 transition-all duration-300 hover:bg-pink-500 hover:text-white active:scale-95"
+                >
+                  {t('ctaQuote')}
+                  <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:rotate-45" />
+                </button>
+              </Magnetic>
+              <Magnetic>
+                <button
+                  data-testid="hero-products-button"
+                  onClick={() => navigate('/products')}
+                  className="flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold text-white backdrop-blur transition-all duration-300 hover:border-white/50 hover:bg-white/10 active:scale-95"
+                >
+                  {t('ctaProducts')}
+                  <ArrowRight size={16} />
+                </button>
+              </Magnetic>
             </div>
           </FadeIn>
 
-          <FadeIn delay={1.2} className="absolute right-8 top-24 z-20">
-            <div className="glass-card animate-float-slow w-60 rounded-3xl p-5" data-testid="hero-card-quality">
-              <div className="flex items-center gap-3">
-                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-pink-600/10 text-pink-600">
-                  <ShieldCheck size={20} />
-                </span>
-                <div>
-                  <p className="text-sm font-bold text-slate-900">{t('heroCard2Title')}</p>
-                  <p className="text-xs text-slate-500">{t('heroCard2Sub')}</p>
+          <FadeIn delay={1.05}>
+            <div className="mt-12 grid max-w-lg grid-cols-3 divide-x divide-white/10" data-testid="hero-stats">
+              {stats.slice(0, 3).map((s) => (
+                <div key={s.label} className="px-5 first:pl-0">
+                  <div className="font-display text-2xl font-extrabold text-white sm:text-3xl">
+                    <Counter value={s.value} />
+                  </div>
+                  <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">{s.label}</div>
                 </div>
-              </div>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={1.35} className="absolute bottom-2 left-1/2 z-20 -translate-x-1/2">
-            <div className="flex gap-3" data-testid="hero-badges">
-              {[t('heroBadge1'), t('heroBadge2'), t('heroBadge3')].map((b) => (
-                <span key={b} className="glass-card rounded-full px-4 py-2 text-xs font-bold text-slate-700">{b}</span>
               ))}
             </div>
           </FadeIn>
+
+          <FadeIn delay={1.1} className="mt-10 lg:hidden">
+            <img
+              src="/assets/categories/gummy-candy.webp"
+              alt="Infinitives Healthcare finished formulation"
+              className="h-60 w-full rounded-[2rem] border border-white/15 object-cover"
+            />
+          </FadeIn>
         </div>
+
+        <motion.div style={{ y: imgY }} className="relative hidden lg:block">
+          <motion.div
+            initial={{ opacity: 0, y: 60, scale: 0.94 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.7, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+            style={{ rotateX: tiltX, rotateY: tiltY, transformPerspective: 1100 }}
+            className="relative"
+          >
+            <div className="absolute inset-0 -z-10 scale-110 rounded-full bg-gradient-to-tr from-pink-600/30 via-sky-500/25 to-amber-400/25 blur-3xl" />
+            <div className="animate-spin-slow absolute -inset-8 -z-10 rounded-full border-2 border-dashed border-white/15" />
+            <motion.div className="pointer-events-none absolute inset-0 z-20" style={{ x: pillX, y: pillY }}>
+              <span className="animate-float absolute -left-10 top-12 h-5 w-14 rounded-full bg-gradient-to-r from-pink-500 to-rose-400 shadow-lg shadow-pink-500/50" />
+              <span className="animate-float-slow absolute -right-8 top-1/3 h-5 w-14 rotate-45 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 shadow-lg shadow-sky-500/50" />
+              <span className="animate-float absolute -bottom-2 left-8 h-5 w-12 -rotate-12 rounded-full bg-gradient-to-r from-amber-400 to-yellow-300 shadow-lg shadow-amber-500/50" style={{ animationDelay: '1.2s' }} />
+            </motion.div>
+            <img
+              src="/assets/categories/gummy-candy.webp"
+              alt="Infinitives Healthcare finished formulation"
+              data-testid="hero-product-image"
+              className="h-[30rem] w-full rounded-[3rem] border border-white/15 object-cover shadow-2xl shadow-black/50"
+            />
+            <FadeIn delay={1.15} className="absolute -left-12 top-10 z-30">
+              <div className="glass-dark animate-float w-56 rounded-3xl p-5" data-testid="hero-card-formulation">
+                <div className="flex items-center gap-3">
+                  <img src={images.gummies} alt="Gummies" className="h-11 w-11 rounded-2xl object-cover" />
+                  <div>
+                    <p className="text-sm font-bold text-white">{t('heroCard1Title')}</p>
+                    <p className="text-xs text-slate-400">{t('heroCard1Sub')}</p>
+                  </div>
+                </div>
+              </div>
+            </FadeIn>
+            <FadeIn delay={1.3} className="absolute -right-6 bottom-12 z-30">
+              <div className="glass-dark animate-float-slow w-52 rounded-3xl p-5" data-testid="hero-card-quality">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-pink-500/20 text-pink-400">
+                    <ShieldCheck size={20} />
+                  </span>
+                  <div>
+                    <p className="text-sm font-bold text-white">{t('heroCard2Title')}</p>
+                    <p className="text-xs text-slate-400">{t('heroCard2Sub')}</p>
+                  </div>
+                </div>
+              </div>
+            </FadeIn>
+          </motion.div>
+        </motion.div>
       </div>
 
-      <motion.div className="absolute bottom-28 left-1/2 z-20 hidden -translate-x-1/2 lg:block" animate={{ y: [0, 10, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}>
-        <ChevronDown size={22} className="text-slate-400" />
+      <motion.div className="absolute bottom-24 left-1/2 z-20 hidden -translate-x-1/2 lg:block" animate={{ y: [0, 10, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}>
+        <ChevronDown size={22} className="text-white/40" />
       </motion.div>
 
-      <div className="relative z-10 mt-auto border-t border-slate-200/60 bg-white/50 backdrop-blur">
-        <Marquee items={marqueeItems} />
+      <div className="relative z-10 mt-auto border-t border-white/10">
+        <Marquee items={marqueeItems} dark />
       </div>
     </section>
   );
@@ -498,6 +508,7 @@ const Home = () => (
     <Capacity />
     <LicenseSection />
     <ProductShowcase />
+    <BatchEstimator />
     <Process />
     <WhyUs />
     <GlobalPresence />

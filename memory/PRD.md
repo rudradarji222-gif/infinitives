@@ -26,6 +26,10 @@ Client runs a nutraceutical plant and previously had the NutriEdge Lifescience w
 - Mr. Vipul Dobariya — OEM — +91 99133 29449
 - Email: info@infinitiveshealthcare.com
 
+## Implemented (2026-09-23, v9)
+- Home hero fully redesigned: dark futuristic theme (void background, neon pink/azure/amber glow orbs, subtle grid overlay), left-aligned oversized typography, live counter stats strip, 3D-tilt product visual with floating dark glass cards and parallax pills, dark ticker at hero bottom; navbar is now always glass for legibility on the dark hero
+- Batch Estimator added (Home, after product showcase): 8 dosage forms, quantity slider with presets (25K–1M), 6 packaging options, live dark summary card with computed lead time and MOQ check, "Send this plan as an inquiry" prefills the Contact form (inquiry type + full message) via router state
+
 ## Implemented (2026-09-23, v8)
 - Process section rebuilt as an animated vertical timeline: gradient line fills with scroll progress, 8 steps alternate left/right with spring pop-in icon nodes and ghost step numbers
 - Both running ticker marquees removed from the bottom of the About page (hero marquee on Home and R&D marquee remain)

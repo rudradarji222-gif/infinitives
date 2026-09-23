@@ -23,7 +23,7 @@ const Navbar = () => {
     <header
       data-testid="main-navbar"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'glass-card shadow-lg shadow-slate-900/5' : 'bg-transparent'
+        scrolled ? 'glass-card shadow-lg shadow-slate-900/10' : 'glass-card'
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">

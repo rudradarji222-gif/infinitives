@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'sonner';
+import { useLocation } from 'react-router-dom';
 import { Mail, MapPin, Phone, Send, Loader2 } from 'lucide-react';
 import { Reveal, SectionHead } from '../components/Reveal';
 import { PageHero } from './About';
@@ -11,8 +12,15 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const Contact = () => {
   const { t } = useLang();
+  const location = useLocation();
   const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', inquiry_type: 'Third-Party Manufacturing', message: '' });
   const [sending, setSending] = useState(false);
+
+  useEffect(() => {
+    if (location.state?.prefill) {
+      setForm((f) => ({ ...f, ...location.state.prefill }));
+    }
+  }, [location.state]);
 
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
