@@ -1,4 +1,6 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Request
+from fastapi import FastAPI, APIRouter, HTTPException, Request, UploadFile, File, Response
+from starlette.concurrency import run_in_threadpool
+import requests as http_requests
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -36,6 +38,41 @@ EMAIL_KEY = os.environ.get("EMERGENT_EMAIL_KEY", "")
 EMAIL_FROM_NAME = os.environ.get("EMAIL_FROM_NAME", "Infinitives Healthcare")
 EMAIL_REPLY_TO = os.environ.get("EMAIL_REPLY_TO")
 OWNER_EMAIL = os.environ.get("OWNER_EMAIL", "info@infinitiveshealthcare.com")
+
+# Emergent object storage
+STORAGE_BASE = (os.environ.get("INTEGRATION_PROXY_URL") or "").strip() or "https://integrations.emergentagent.com"
+STORAGE_URL = STORAGE_BASE.rstrip("/") + "/objstore/api/v1/storage"
+EMERGENT_KEY = os.environ.get("EMERGENT_LLM_KEY")
+APP_NAME = "infinitives-healthcare"
+storage_key = None
+
+
+def init_storage(force: bool = False):
+    global storage_key
+    if storage_key and not force:
+        return storage_key
+    resp = http_requests.post(f"{STORAGE_URL}/init", json={"emergent_key": EMERGENT_KEY}, timeout=30)
+    resp.raise_for_status()
+    storage_key = resp.json()["storage_key"]
+    return storage_key
+
+
+def put_object(path: str, data: bytes, content_type: str) -> dict:
+    key = init_storage()
+    resp = http_requests.put(
+        f"{STORAGE_URL}/objects/{path}",
+        headers={"X-Storage-Key": key, "Content-Type": content_type},
+        data=data, timeout=120,
+    )
+    resp.raise_for_status()
+    return resp.json()
+
+
+def get_object(path: str):
+    key = init_storage()
+    resp = http_requests.get(f"{STORAGE_URL}/objects/{path}", headers={"X-Storage-Key": key}, timeout=60)
+    resp.raise_for_status()
+    return resp.content, resp.headers.get("Content-Type", "application/octet-stream")
 
 # ---------------- Email guardrail gate (G2/G3 structural checks) ---------------- #
 _SHORTENERS = ("bit.ly", "tinyurl.com", "t.co", "is.gd", "cutt.ly", "goo.gl", "rebrand.ly")
@@ -153,6 +190,48 @@ class Inquiry(InquiryCreate):
     email_id: Optional[str] = None
 
 
+class RfqAttachment(BaseModel):
+    kind: str = Field(default="document", max_length=40)
+    filename: str = Field(default="", max_length=200)
+    path: str = Field(default="", max_length=300)
+
+
+class RfqCreate(BaseModel):
+    product_name: str = Field(default="", max_length=200)
+    brand_name: str = Field(default="", max_length=200)
+    category: str = Field(default="Nutraceutical", max_length=60)
+    dosage_form: str = Field(default="Tablets", max_length=60)
+    composition: str = Field(default="", max_length=1000)
+    strength: str = Field(default="", max_length=100)
+    active_count: str = Field(default="", max_length=20)
+    target_market: str = Field(default="", max_length=100)
+    quantity: int = Field(default=0, ge=0, le=100000000)
+    mfg_type: str = Field(default="Contract Manufacturing", max_length=80)
+    dev_req: str = Field(default="", max_length=120)
+    packaging: str = Field(default="Bottle", max_length=60)
+    pack_size: str = Field(default="", max_length=120)
+    pack_material: str = Field(default="", max_length=120)
+    label_req: str = Field(default="", max_length=120)
+    reg_required: bool = False
+    has_registration: bool = False
+    product_registered: bool = False
+    reg_docs: List[str] = []
+    dest_country: str = Field(default="", max_length=100)
+    dest_port: str = Field(default="", max_length=120)
+    shipping: str = Field(default="FOB", max_length=20)
+    delivery_date: str = Field(default="", max_length=40)
+    name: str = Field(..., min_length=2, max_length=100)
+    company: str = Field(..., min_length=2, max_length=150)
+    email: EmailStr
+    phone: str = Field(..., min_length=5, max_length=30)
+    country: str = Field(..., min_length=2, max_length=100)
+    website: str = Field(default="", max_length=200)
+    position: str = Field(default="", max_length=100)
+    message: str = Field(default="", max_length=3000)
+    lead_time: str = Field(default="", max_length=40)
+    attachments: List[RfqAttachment] = []
+
+
 # Simple in-memory rate limit: 5 submissions / hour / IP
 _rate_bucket: dict = {}
 
@@ -226,6 +305,180 @@ async def create_inquiry(payload: InquiryCreate, request: Request):
     return obj
 
 
+ALLOWED_UPLOAD_EXTS = {"pdf", "png", "jpg", "jpeg", "webp", "doc", "docx", "xls", "xlsx", "csv", "txt"}
+
+
+@api_router.post("/rfq-upload")
+async def rfq_upload(file: UploadFile = File(...), kind: str = "document"):
+    data = await file.read()
+    if len(data) > 10 * 1024 * 1024:
+        raise HTTPException(status_code=413, detail="File too large (max 10 MB)")
+    ext = file.filename.split(".")[-1].lower() if "." in file.filename else "bin"
+    if ext not in ALLOWED_UPLOAD_EXTS:
+        raise HTTPException(status_code=400, detail="Unsupported file type")
+    path = f"{APP_NAME}/rfq/{uuid.uuid4()}.{ext}"
+    try:
+        result = await run_in_threadpool(put_object, path, data, file.content_type or "application/octet-stream")
+    except Exception as e:
+        logger.error(f"Storage upload failed: {e}")
+        raise HTTPException(status_code=502, detail="File upload failed")
+    await db.files.insert_one({
+        "id": str(uuid.uuid4()),
+        "storage_path": result["path"],
+        "original_filename": file.filename,
+        "content_type": file.content_type or "application/octet-stream",
+        "size": result.get("size", len(data)),
+        "is_deleted": False,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    return {"path": result["path"], "filename": file.filename, "size": result.get("size", len(data))}
+
+
+@api_router.get("/files/{path:path}")
+async def download_file(path: str):
+    record = await db.files.find_one({"storage_path": path, "is_deleted": False})
+    if not record:
+        raise HTTPException(status_code=404, detail="File not found")
+    try:
+        data, content_type = await run_in_threadpool(get_object, path)
+    except Exception:
+        raise HTTPException(status_code=404, detail="File not found in storage")
+    fname = (record.get("original_filename") or "file").replace('"', "")
+    return Response(
+        content=data,
+        media_type=record.get("content_type", content_type),
+        headers={"Content-Disposition": f'inline; filename="{fname}"'},
+    )
+
+
+def _rfq_row(label, value):
+    if value in (None, "", [], 0, False):
+        value = "-"
+    if value is True:
+        value = "Yes"
+    if isinstance(value, list):
+        value = ", ".join(str(v) for v in value) or "-"
+    if isinstance(value, int):
+        value = f"{value:,}"
+    return (
+        f'<tr><td style="padding:8px 14px;font-size:12px;color:#64748b;font-family:Arial,sans-serif;'
+        f'border-bottom:1px solid #f1f5f9;white-space:nowrap">{escape(str(label))}</td>'
+        f'<td style="padding:8px 14px;font-size:13px;color:#0f172a;font-family:Arial,sans-serif;'
+        f'border-bottom:1px solid #f1f5f9">{escape(str(value))}</td></tr>')
+
+
+def _rfq_section(title):
+    return (
+        f'<tr><td colspan="2" style="padding:16px 14px 6px;font-family:Arial,sans-serif;font-size:11px;'
+        f'font-weight:bold;letter-spacing:2px;color:#e91e63;text-transform:uppercase">{escape(title)}</td></tr>')
+
+
+@api_router.post("/rfq")
+async def create_rfq(payload: RfqCreate, request: Request):
+    _rate_check(f"rfq-{request.client.host if request.client else 'unknown'}")
+    year = datetime.now(timezone.utc).year
+    count = await db.rfqs.count_documents({})
+    inquiry_id = f"IH-{year}-{count + 1:05d}"
+    doc = payload.dict()
+    doc.update({"id": str(uuid.uuid4()), "inquiry_id": inquiry_id, "created_at": datetime.now(timezone.utc)})
+    try:
+        await db.rfqs.insert_one(doc)
+    except Exception as e:
+        logger.exception("Failed to save RFQ")
+        raise HTTPException(status_code=500, detail=f"Could not save inquiry: {e}")
+
+    proto = request.headers.get("x-forwarded-proto", "https")
+    host = request.headers.get("x-forwarded-host") or request.headers.get("host", "")
+    base = f"{proto}://{host}"
+
+    attach_rows = ""
+    for a in payload.attachments:
+        if a.path:
+            attach_rows += (
+                f'<tr><td style="padding:8px 14px;font-size:12px;color:#64748b;font-family:Arial,sans-serif;'
+                f'border-bottom:1px solid #f1f5f9">{escape(a.kind.replace("_", " ").title())}</td>'
+                f'<td style="padding:8px 14px;font-size:13px;font-family:Arial,sans-serif;border-bottom:1px solid #f1f5f9">'
+                f'<a href="{base}/api/files/{escape(a.path)}" style="color:#0284c7">{escape(a.filename or "Download file")}</a></td></tr>')
+
+    rows = (
+        _rfq_section("Client")
+        + _rfq_row("Company", payload.company)
+        + _rfq_row("Full Name", payload.name)
+        + _rfq_row("Business Email", payload.email)
+        + _rfq_row("WhatsApp / Phone", payload.phone)
+        + _rfq_row("Country", payload.country)
+        + _rfq_row("Website", payload.website)
+        + _rfq_row("Job Position", payload.position)
+        + _rfq_section("Product Details")
+        + _rfq_row("Product / Molecule", payload.product_name)
+        + _rfq_row("Generic / Brand Name", payload.brand_name)
+        + _rfq_row("Category", payload.category)
+        + _rfq_row("Dosage Form", payload.dosage_form)
+        + _rfq_row("Composition / Formulation", payload.composition)
+        + _rfq_row("Strength", payload.strength)
+        + _rfq_row("Active Ingredients", payload.active_count)
+        + _rfq_row("Target Market", payload.target_market)
+        + _rfq_section("Manufacturing")
+        + _rfq_row("Manufacturing Type", payload.mfg_type)
+        + _rfq_row("Development Requirement", payload.dev_req)
+        + _rfq_row("Quantity (units)", payload.quantity)
+        + _rfq_row("Estimated Lead Time", payload.lead_time)
+        + _rfq_section("Packaging")
+        + _rfq_row("Packaging", payload.packaging)
+        + _rfq_row("Pack Size", payload.pack_size)
+        + _rfq_row("Packaging Material", payload.pack_material)
+        + _rfq_row("Label Requirement", payload.label_req)
+        + _rfq_section("Regulatory")
+        + _rfq_row("Registration Required", payload.reg_required)
+        + _rfq_row("Client Has Registration", payload.has_registration)
+        + _rfq_row("Product Already Registered", payload.product_registered)
+        + _rfq_row("Documentation Required", payload.reg_docs)
+        + _rfq_section("Delivery")
+        + _rfq_row("Destination Country", payload.dest_country)
+        + _rfq_row("Destination City / Port", payload.dest_port)
+        + _rfq_row("Shipping Terms", payload.shipping)
+        + _rfq_row("Required Delivery Date", payload.delivery_date)
+        + _rfq_section("Message")
+        + _rfq_row("Additional Requirements", payload.message)
+        + (_rfq_section("Attachments") + attach_rows if attach_rows else "")
+    )
+
+    subject = f"New RFQ {inquiry_id} - {escape(payload.company)} - {escape(payload.product_name or payload.dosage_form)}"
+    html = (
+        '<table role="presentation" width="100%" style="background:#f8fafc;padding:24px 0">'
+        '<tr><td align="center"><table role="presentation" width="640" '
+        'style="background:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #e2e8f0">'
+        '<tr><td style="background:#090d16;padding:20px 28px;font-family:Arial,sans-serif">'
+        '<span style="color:#ec4899;font-weight:bold;font-size:18px">INFINITIVES</span> '
+        '<span style="color:#38bdf8;font-weight:bold;font-size:18px">HEALTHCARE</span>'
+        f'<div style="color:#f59e0b;font-size:13px;font-weight:bold;margin-top:6px">Inquiry ID: {escape(inquiry_id)}</div>'
+        '<div style="color:#94a3b8;font-size:11px;margin-top:2px">Batch Estimator RFQ - Excellence in Every Dose</div></td></tr>'
+        '<tr><td style="padding:12px 14px">'
+        '<table role="presentation" width="100%" style="border-collapse:collapse">'
+        + rows +
+        '</table></td></tr>'
+        '<tr><td style="padding:16px 28px;background:#f8fafc;font-family:Arial,sans-serif;'
+        'font-size:11px;color:#94a3b8">Sent by the Infinitives Healthcare website batch estimator. '
+        'We never ask for passwords or card details by email.</td></tr>'
+        '</table></td></tr></table>'
+    )
+    try:
+        email_id = await send_email(to=OWNER_EMAIL, subject=subject, html=html)
+        await db.rfqs.update_one({"inquiry_id": inquiry_id}, {"$set": {"email_id": email_id}})
+    except Exception:
+        logger.error(f"RFQ {inquiry_id} saved but email delivery failed")
+    return {"inquiry_id": inquiry_id, "status": "received"}
+
+
+@api_router.get("/rfqs")
+async def list_rfqs():
+    items = await db.rfqs.find({}, {"_id": 0}).sort("created_at", -1).to_list(200)
+    for i in items:
+        if isinstance(i.get("created_at"), datetime):
+            i["created_at"] = i["created_at"].isoformat()
+    return items
+
+
 @api_router.get("/inquiries", response_model=List[Inquiry])
 async def list_inquiries():
     items = await db.inquiries.find({}, {"_id": 0}).sort("created_at", -1).to_list(200)
@@ -241,6 +494,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+async def startup_storage():
+    try:
+        await run_in_threadpool(init_storage)
+        logger.info("Object storage initialized")
+    except Exception as e:
+        logger.error(f"Storage init failed: {e}")
 
 
 @app.on_event("shutdown")

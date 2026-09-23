@@ -26,6 +26,12 @@ Client runs a nutraceutical plant and previously had the NutriEdge Lifescience w
 - Mr. Vipul Dobariya — OEM — +91 99133 29449
 - Email: info@infinitiveshealthcare.com
 
+## Implemented (2026-09-23, v10) — RFQ Module
+- Batch Estimator rebuilt as a 7-step RFQ wizard: 1 Product Details (dosage form, product/molecule name, generic/brand name, category chips Pharmaceutical/Nutraceutical/Herbal/Food Supplement/Cosmetic, composition, strength, actives count, target market) → 2 Manufacturing (quantity slider+presets, 5 manufacturing types, 3 development requirements) → 3 Packaging (type, pack size, material, label requirement) → 4 Regulatory (registration toggles + CTD/GMP/COA/Stability doc checkboxes) → 5 Delivery (destination country/port, EXW/FOB/CIF/Other, required date) → 6 Contact Info (name/company/email/phone/country required, website/position/message optional, 4 file upload slots) → 7 Review table with Edit/Submit
+- Success screen with sequential Inquiry ID (IH-2026-XXXXX); RFQ stored in db.rfqs; detailed sectioned email built and sent to info@infinitiveshealthcare.com (email still blocked until that mailbox exists — RFQs are safe in DB)
+- File uploads via Emergent object storage (playbook followed): POST /api/rfq-upload (10MB, type-checked), GET /api/files/{path} serves downloads; attachment links included in the RFQ email
+- Backend endpoints: POST /api/rfq, GET /api/rfqs, POST /api/rfq-upload, GET /api/files/{path}
+
 ## Implemented (2026-09-23, v9)
 - Home hero fully redesigned: dark futuristic theme (void background, neon pink/azure/amber glow orbs, subtle grid overlay), left-aligned oversized typography, live counter stats strip, 3D-tilt product visual with floating dark glass cards and parallax pills, dark ticker at hero bottom; navbar is now always glass for legibility on the dark hero
 - Batch Estimator added (Home, after product showcase): 8 dosage forms, quantity slider with presets (25K–1M), 6 packaging options, live dark summary card with computed lead time and MOQ check, "Send this plan as an inquiry" prefills the Contact form (inquiry type + full message) via router state
