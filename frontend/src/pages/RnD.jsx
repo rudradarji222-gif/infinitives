@@ -34,7 +34,7 @@ const RnD = () => {
           </Reveal>
           <Reveal delay={0.15}>
             <div className="relative">
-              <img src={images.lab} alt="Infinitives Healthcare laboratory" className="h-[26rem] w-full rounded-[2.5rem] object-cover shadow-2xl shadow-slate-900/15" />
+              <img src={images.lab} alt="Infinitives Healthcare laboratory" loading="lazy" className="h-[26rem] w-full rounded-[2.5rem] object-cover shadow-2xl shadow-slate-900/15" />
               <div className="glass-card absolute -bottom-6 right-6 rounded-3xl px-6 py-4">
                 <span className="font-display text-2xl font-extrabold text-infinity-gradient">100%</span>
                 <p className="text-xs font-semibold text-slate-600">Batch-tested before dispatch</p>

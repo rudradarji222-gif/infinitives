@@ -11,7 +11,7 @@ const Marquee = ({ items, dark = false, reverse = false, fast = false }) => {
             <span className={`font-display text-xl font-extrabold uppercase tracking-[0.18em] sm:text-2xl ${dark ? 'text-white/80' : 'text-slate-800'}`}>
               {item}
             </span>
-            <img src="/assets/logo-transparent.png" alt="Infinitives Healthcare" className="h-8 w-auto opacity-90" />
+            <img src="/assets/logo-small.webp" alt="Infinitives Healthcare" className="h-8 w-auto opacity-90" />
           </span>
         ))}
       </div>

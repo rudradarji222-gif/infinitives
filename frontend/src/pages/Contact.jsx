@@ -138,16 +138,6 @@ const Contact = () => {
                 <p className="mt-1 text-sm italic text-slate-500">{t('addressPending')}</p>
               </div>
             </Reveal>
-            <Reveal delay={0.26}>
-              <div className="dark-mesh rounded-[2.5rem] p-8 text-white" data-testid="contact-hours-card">
-                <h4 className="font-display text-lg font-bold">Working hours</h4>
-                <p className="mt-2 text-sm text-slate-400">Monday — Saturday<br />9:30 AM — 6:30 PM IST</p>
-                <div className="mt-5 h-px bg-white/10" />
-                <p className="mt-5 text-xs leading-relaxed text-slate-500">
-                  For export documentation, dossiers and COA requests, mention your target market in the inquiry form.
-                </p>
-              </div>
-            </Reveal>
           </div>
         </div>
       </section>

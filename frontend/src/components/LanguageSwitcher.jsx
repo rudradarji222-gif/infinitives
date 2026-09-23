@@ -145,8 +145,9 @@ export default function LanguageSwitcher({ dark = false }) {
   const [query, setQuery] = useState('');
   const menuRef = useRef(null);
 
-  // Load Google Translate widget once
-  useEffect(() => {
+  // Google Translate loads lazily: only when the menu opens, or immediately
+  // if a translation cookie already exists (returning translated visitor).
+  const ensureGT = () => {
     if (window.__gtLoaded) return;
     window.__gtLoaded = true;
 
@@ -167,6 +168,11 @@ export default function LanguageSwitcher({ dark = false }) {
     s.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
     s.async = true;
     document.body.appendChild(s);
+  };
+
+  useEffect(() => {
+    if (document.cookie.match(/googtrans=\/en\/[a-z-]+/i)) ensureGT();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Close on outside click
@@ -216,7 +222,7 @@ export default function LanguageSwitcher({ dark = false }) {
    <div ref={menuRef} className="relative notranslate">
       <div id="google_translate_element" style={{ position: 'absolute', top: -9999, left: -9999 }} />
       <button
-        onClick={() => setOpen(!open)}
+        onClick={() => { ensureGT(); setOpen(!open); }}
         data-testid="language-switcher-btn"
         className={`flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold transition ${dark ? 'border-white/20 text-white/80 hover:border-pink-400 hover:text-white' : 'border-slate-200 bg-white/80 text-slate-700 backdrop-blur hover:border-pink-300'}`}
         aria-label="Choose language"

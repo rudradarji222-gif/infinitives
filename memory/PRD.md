@@ -26,6 +26,12 @@ Client runs a nutraceutical plant and previously had the NutriEdge Lifescience w
 - Mr. Vipul Dobariya — OEM — +91 99133 29449
 - Email: info@infinitiveshealthcare.com
 
+## Implemented (2026-09-23, v6)
+- Performance pass: Google Translate script now lazy-loads (only when the language menu opens, or instantly if a translation cookie exists); logo served as optimized webp in 3 sizes (420w navbar/marquee, 1200w hero watermark); lazy-loading added to chapter/showcase/facility/lab images
+- Marquee ticker sped up (46s→30s, fast 30s→18s) and GPU-smoothed (translate3d + will-change)
+- Working Hours card removed from Contact page
+- Fixed Google Translate pink highlight artifacts (neutralized goog-text-highlight + inline font backgrounds)
+
 ## Implemented (2026-09-19, v5)
 - Cursor-following glow removed per client request
 - Language system replaced with the NutriEdge-style Google Translate switcher: 133 languages, searchable dropdown, styled to match the brand (navbar + mobile menu), Google toolbar hidden via CSS. Old 5-language custom dictionary kept dormant (context still present but unused by switcher)

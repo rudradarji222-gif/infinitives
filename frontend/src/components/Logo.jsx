@@ -1,4 +1,4 @@
-const LOGO_SRC = '/assets/logo-transparent.png';
+const LOGO_SRC = '/assets/logo-small.webp';
 
 const Logo = ({ dark = false, compact = false }) => (
   <div

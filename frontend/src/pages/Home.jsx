@@ -56,7 +56,7 @@ const Hero = () => {
         animate={{ y: [0, 34, 0], rotate: [0, 5, 0] }}
         transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <img src="/assets/logo-transparent.png" alt="" className="w-full" />
+        <img src="/assets/logo-watermark.webp" alt="" className="w-full" />
       </motion.div>
 
       <motion.div className="pointer-events-none absolute -left-24 top-1/3 h-80 w-80 rounded-full bg-pink-500/15 blur-3xl" animate={{ x: [0, 50, 0], y: [0, -35, 0] }} transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }} />
@@ -220,7 +220,7 @@ const Chapters = () => {
             </Reveal>
             <Reveal delay={0.15}>
               <div className="group relative overflow-hidden rounded-[2.5rem]" data-testid={`chapter-image-${c.number}`}>
-                <img src={c.image} alt={c.title} className="h-96 w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src={c.image} alt={c.title} loading="lazy" className="h-96 w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
                 <span className="glass-card absolute bottom-5 left-5 rounded-full px-4 py-2 text-xs font-bold text-slate-800">
                   {c.title}
@@ -279,7 +279,7 @@ const ProductShowcase = () => {
               className="group relative block overflow-hidden rounded-[2rem] bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-slate-900/10"
             >
               <div className="relative h-64 overflow-hidden">
-                <img src={d.image} alt={d.name} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <img src={d.image} alt={d.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/10 to-transparent" />
                 <span className="absolute left-5 top-5 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white" style={{ backgroundColor: d.accent }}>
                   {String(i + 1).padStart(2, '0')}
@@ -383,7 +383,7 @@ const WhyUs = () => {
             <div className="animate-spin-slow absolute inset-0 rounded-full border-2 border-dashed border-slate-300" />
             <div className="absolute inset-6 rounded-full bg-gradient-to-br from-pink-500/10 via-sky-500/10 to-amber-400/10" />
             <div className="glass-card flex h-44 w-44 items-center justify-center rounded-full p-6 sm:h-56 sm:w-56 sm:p-8">
-              <img src="/assets/logo-transparent.png" alt="Infinitives Healthcare" className="w-full p-2" />
+              <img src="/assets/logo-small.webp" alt="Infinitives Healthcare" className="w-full p-2" />
             </div>
           </div>
         </Reveal>

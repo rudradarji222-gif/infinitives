@@ -36,7 +36,7 @@ const About = () => {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
             <div className="relative">
-              <img src={images.facility} alt="Infinitives Healthcare facility" className="h-[28rem] w-full rounded-[2.5rem] object-cover shadow-2xl shadow-slate-900/15" />
+              <img src={images.facility} alt="Infinitives Healthcare facility" loading="lazy" className="h-[28rem] w-full rounded-[2.5rem] object-cover shadow-2xl shadow-slate-900/15" />
               <div className="glass-card absolute -bottom-6 left-6 rounded-3xl px-6 py-4">
                 <span className="font-display text-2xl font-extrabold text-infinity-gradient">15,000 sq.ft</span>
                 <p className="text-xs font-semibold text-slate-600">State-of-the-art plant, Gujarat, India</p>
