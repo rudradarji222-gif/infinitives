@@ -26,6 +26,12 @@ Client runs a nutraceutical plant and previously had the NutriEdge Lifescience w
 - Mr. Vipul Dobariya — OEM — +91 99133 29449
 - Email: info@infinitiveshealthcare.com
 
+## Implemented (2026-09-23, v7)
+- Scroll lag fixed: Lenis smooth-scroll library removed (native scrolling restored) and glass backdrop blur lightened 18px→10px
+- Global Export Operations chapter image replaced with client-uploaded container port + airplane photo (/assets/export-ops.webp)
+- Home CTA band now shows only "Get a Quote" — the three executive call pills removed
+- "Direct lines to our division heads" section removed from About page (executive cards remain on Contact)
+
 ## Implemented (2026-09-23, v6)
 - Performance pass: Google Translate script now lazy-loads (only when the language menu opens, or instantly if a translation cookie exists); logo served as optimized webp in 3 sizes (420w navbar/marquee, 1200w hero watermark); lazy-loading added to chapter/showcase/facility/lab images
 - Marquee ticker sped up (46s→30s, fast 30s→18s) and GPU-smoothed (translate3d + will-change)

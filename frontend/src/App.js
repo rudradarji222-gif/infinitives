@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import Lenis from 'lenis';
 import { motion, useScroll } from 'framer-motion';
 import { LanguageProvider } from './i18n/LanguageContext';
 import Navbar from './components/Navbar';
@@ -36,18 +35,7 @@ const ScrollToTop = () => {
 
 function App() {
   useEffect(() => {
-    const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
-    let rafId;
-    const raf = (time) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    };
-    rafId = requestAnimationFrame(raf);
     document.title = 'Infinitives Healthcare | Excellence in Every Dose';
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-    };
   }, []);
 
   return (

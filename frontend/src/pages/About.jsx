@@ -2,7 +2,7 @@ import { Factory, Sparkles, Award, Users } from 'lucide-react';
 import Marquee from '../components/Marquee';
 import { Reveal, SectionHead } from '../components/Reveal';
 import { useLang } from '../i18n/LanguageContext';
-import { images, milestones, infrastructure, expertise, executives, marqueeItems, certifications } from '../data/content';
+import { images, milestones, infrastructure, expertise, marqueeItems, certifications } from '../data/content';
 import { Beaker, Tags, Globe } from 'lucide-react';
 
 const MILESTONE_ICONS = { Sparkles, Factory, Award, Users };
@@ -115,27 +115,6 @@ const About = () => {
               </Reveal>
             );
           })}
-        </div>
-      </section>
-
-      <section className="bg-white py-20 sm:py-28" data-testid="about-leadership">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <SectionHead overline={t('execTitle')} title="Direct lines to our division heads" sub={t('contactSub')} />
-          <div className="grid gap-5 md:grid-cols-3">
-            {executives.map((e, i) => (
-              <Reveal key={e.tel} delay={i * 0.08}>
-                <div className="group relative h-full overflow-hidden rounded-[2rem] bg-[#f8fafc] p-8 ring-1 ring-slate-100 transition hover:-translate-y-1.5 hover:shadow-xl" data-testid={`about-exec-${i}`}>
-                  <span className="absolute right-0 top-0 h-24 w-24 rounded-bl-[3rem] opacity-15" style={{ backgroundColor: e.color }} />
-                  <span className="rounded-full px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-white" style={{ backgroundColor: e.color }}>{e.role}</span>
-                  <h3 className="font-display mt-5 text-2xl font-extrabold text-slate-900">{e.name}</h3>
-                  <p className="mt-1 text-sm text-slate-500">{e.badge}</p>
-                  <a href={`tel:${e.tel}`} data-testid={`about-exec-call-${i}`} className="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-2.5 text-xs font-bold text-white transition hover:bg-pink-600">
-                    {e.phone}
-                  </a>
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 

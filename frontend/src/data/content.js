@@ -86,7 +86,7 @@ export const chapters = [
       'Exporting certified nutraceutical formulations across Asia, Africa, LATAM and beyond — with complete COA documentation, dossier support and export-grade packaging.',
     capacity: '15+ Countries Served',
     features: ['Dossier & COA Support', 'International Compliance', 'Custom Export Packaging'],
-    image: images.conveyor,
+    image: '/assets/export-ops.webp',
     accent: '#f59e0b',
   },
 ];

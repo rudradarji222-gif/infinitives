@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { animate, motion, useInView, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
 import {
   ArrowUpRight, ArrowRight, ShieldCheck, Factory, Package, Boxes, ScanSearch,
-  Headphones, Leaf, Star, MapPin, Phone, CheckCircle2, FlaskConical, Microscope,
+  Headphones, Leaf, Star, MapPin, CheckCircle2, FlaskConical, Microscope,
   Warehouse, Truck, ChevronDown,
 } from 'lucide-react';
 import Marquee from '../components/Marquee';
@@ -13,7 +13,7 @@ import { Reveal, MaskedLine, FadeIn, SectionHead } from '../components/Reveal';
 import { useLang } from '../i18n/LanguageContext';
 import {
   images, chapters, stats, capacity, countries, processSteps,
-  principles, testimonials, marqueeItems, dosageShowcase, executives, certifications,
+  principles, testimonials, marqueeItems, dosageShowcase, certifications,
 } from '../data/content';
 
 const PRINCIPLE_ICONS = { Factory, Package, Boxes, ScanSearch, Headphones, Leaf };
@@ -464,13 +464,6 @@ const CTABand = () => {
             >
               {t('ctaQuote')} <ArrowUpRight size={16} className="transition-transform group-hover:rotate-45" />
             </button>
-            <div className="flex flex-wrap justify-center gap-3">
-              {executives.map((e) => (
-                <a key={e.tel} href={`tel:${e.tel}`} data-testid={`cta-call-${e.tel}`} className="glass-card flex items-center gap-2 rounded-full px-5 py-3 text-xs font-bold text-slate-700 transition hover:shadow-lg">
-                  <Phone size={13} style={{ color: e.color }} /> {e.name.replace('Mr. ', '')}
-                </a>
-              ))}
-            </div>
           </div>
         </div>
       </Reveal>
