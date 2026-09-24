@@ -17,7 +17,7 @@ export const images = {
 export const company = {
   name: 'Infinitives Healthcare',
   tagline: 'Excellence in Every Dose',
-  email: 'info@infinitiveshealthcare.com',
+  email: 'info@infinitveshealthcare.com',
   address: null,
   socials: { facebook: '#', linkedin: '#', instagram: '#' },
 };
