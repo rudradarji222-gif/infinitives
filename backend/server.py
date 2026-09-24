@@ -37,7 +37,7 @@ EMAIL_BASE_URL = "https://integrations.emergentagent.com"
 EMAIL_KEY = os.environ.get("EMERGENT_EMAIL_KEY", "")
 EMAIL_FROM_NAME = os.environ.get("EMAIL_FROM_NAME", "Infinitives Healthcare")
 EMAIL_REPLY_TO = os.environ.get("EMAIL_REPLY_TO")
-OWNER_EMAIL = os.environ.get("OWNER_EMAIL", "info@infinitveshealthcare.com")
+OWNER_EMAIL = os.environ.get("OWNER_EMAIL", "info@infinitiveshealthcare.com")
 
 # Emergent object storage
 STORAGE_BASE = (os.environ.get("INTEGRATION_PROXY_URL") or "").strip() or "https://integrations.emergentagent.com"

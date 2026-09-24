@@ -27,8 +27,8 @@ Client runs a nutraceutical plant and previously had the NutriEdge Lifescience w
 - Email: info@infinitiveshealthcare.com
 
 ## Implemented (2026-09-23, v11)
-- All inquiry/RFQ email routing updated to client-specified address: info@infinitveshealthcare.com (note the spelling — one 'i' in "infinitves", exactly as client typed twice). Updated in backend env (OWNER_EMAIL, EMAIL_REPLY_TO), site footer, contact page, RFQ success screen
-- DNS check: neither infinitiveshealthcare.com nor infinitveshealthcare.com currently has MX records — no mailbox exists yet, so the email provider blocks sends ("undeliverable recipient"). RFQs continue saving to DB. Delivery auto-activates once the mailbox + MX records are created. Client says they have domain access
+- Final inquiry email confirmed by client: info@infinitiveshealthcare.com (the earlier "infinitves" was a typo). All inquiry/RFQ email routing, footer, contact page, and RFQ success screen use this address
+- DNS check: infinitiveshealthcare.com currently has NO MX records — no mailbox exists yet, so the email provider blocks sends ("undeliverable recipient"). RFQs/inquiries keep saving to DB. Delivery auto-activates once the mailbox + MX records are created (client has domain access)
 
 ## Implemented (2026-09-23, v10) — RFQ Module
 - Batch Estimator rebuilt as a 7-step RFQ wizard: 1 Product Details (dosage form, product/molecule name, generic/brand name, category chips Pharmaceutical/Nutraceutical/Herbal/Food Supplement/Cosmetic, composition, strength, actives count, target market) → 2 Manufacturing (quantity slider+presets, 5 manufacturing types, 3 development requirements) → 3 Packaging (type, pack size, material, label requirement) → 4 Regulatory (registration toggles + CTD/GMP/COA/Stability doc checkboxes) → 5 Delivery (destination country/port, EXW/FOB/CIF/Other, required date) → 6 Contact Info (name/company/email/phone/country required, website/position/message optional, 4 file upload slots) → 7 Review table with Edit/Submit

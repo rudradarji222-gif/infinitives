@@ -440,7 +440,7 @@ const BatchEstimator = () => {
                   {inquiryId}
                 </div>
                 <p className="mx-auto mt-5 max-w-md text-sm leading-relaxed text-slate-500">
-                  Our business development team will review your requirements and contact you within 24 hours. A copy has been sent to info@infinitveshealthcare.com.
+                  Our business development team will review your requirements and contact you within 24 hours. A copy has been sent to info@infinitiveshealthcare.com.
                 </p>
                 <button data-testid="rfq-new-button" onClick={reset} className="mt-8 rounded-full border border-slate-300 px-8 py-3 text-sm font-bold text-slate-700 transition hover:border-pink-400 hover:text-pink-600">
                   Start another inquiry
